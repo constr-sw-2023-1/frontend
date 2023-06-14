@@ -14,6 +14,8 @@ import CreateCertification from "@pages/PrivatePages/Certifications/CreateCertif
 import Classes from "@pages/PrivatePages/Classes"
 import CreateEdit from "@pages/PrivatePages/Classes/CreateEdit/CreateEdit"
 import Login from "@pages/Login";
+import Students from "@pages/students";
+
 
 export default function RoutesComponent() {
   return (
@@ -32,11 +34,12 @@ export default function RoutesComponent() {
         <Route path="/professors/certificates/create" element={<CreateCertification />} />
         <Route path="/professors/certificates/:id" element={<CreateCertification />} />
         <Route path="/Turmas" element={<Classes />} />
-        <Route path="/Turmas/:id" element={<CreateEdit/>}/>
+        <Route path="/Turmas/:id" element={<CreateEdit />} />
         <Route path="/login" element={<Login />} />
         <Route path="/Periodos" element={<Shifts />} />
         <Route path="/create-shift" element={<CreateShiftsPage name={""} />} />
         <Route path="/edit-shift/:id" element={<CreateShiftsPage name={""} />} />
+        <Route path={"/students"} element={<Students />} />
       </Route>
     </Routes>
   );
