@@ -7,7 +7,6 @@ interface ButtonYellowProps {
   text: string;
   icon?: React.ReactNode;
   styles?: React.CSSProperties;
-  onClick?: () => void; // Adicionado o onClick
 }
 
 const ButtonYellow: React.FC<ButtonYellowProps> = ({ text, icon, styles, ...props }) => {
@@ -16,8 +15,6 @@ const ButtonYellow: React.FC<ButtonYellowProps> = ({ text, icon, styles, ...prop
       return (
         <IconButton
           sx={{
-            display: 'flex',
-            alignItems: 'center',
             bgcolor: "#F18F01",
             color: "black",
             borderRadius: "28px",
@@ -29,7 +26,7 @@ const ButtonYellow: React.FC<ButtonYellowProps> = ({ text, icon, styles, ...prop
           }}
           {...props}
         >
-          <Typography sx={{ fontSize: "inherit", display: 'flex', alignItems: 'center' }}>
+          <Typography sx={{ fontSize: "inherit" }}>
             {icon}
             {text}
           </Typography>
@@ -39,14 +36,11 @@ const ButtonYellow: React.FC<ButtonYellowProps> = ({ text, icon, styles, ...prop
       return (
         <Button
           sx={{
-            display: 'flex',
-            alignItems: 'center',
             bgcolor: "#F18F01",
             color: "black",
             borderRadius: "28px",
             fontSize: "14px",
             fontWeight: 600,
-            padding: "0px",
             "&:hover": {
               bgcolor: "#FFA500",
               color: "black",
