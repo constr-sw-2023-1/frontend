@@ -1,7 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
+import Add from "@mui/icons-material/Add"
 import LessonItem from "./components/LessonsItem";
 import { useState } from "react";
+import ButtonYellow from "./components/ButtonYellow";
+
 
 export interface Lesson {
   name: string;
@@ -36,6 +39,7 @@ export default function Lessons() {
   const [lessons, setLessons] = useState<Lesson[]>(mockLessons);
 
   return (
+  <Container>
     <Box
       sx={{
         width: "100%",
@@ -86,5 +90,8 @@ export default function Lessons() {
         ))}
       </Box>
     </Box>
+    <ButtonYellow text="Todos os tipos" styles={{}} />
+    <ButtonYellow text="Criar" icon={<Add />} />
+  </Container>
   );
 }
