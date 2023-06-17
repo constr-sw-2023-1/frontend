@@ -1,132 +1,90 @@
-import { Box, Button, Container, Typography, IconButton } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
-import Add from "@mui/icons-material/Add";
-import { useCallback, useEffect, useState } from "react";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ButtonYellow from "./components/ButtonYellow";
-import api from "@utils/api";
-import { Subject } from "./model/subject";
-import "./Lessons.css";
-import { useNavigate } from 'react-router-dom';
+import LessonItem from "./components/LessonsItem";
+import { useState } from "react";
 
-const formatTime = (date: Date) =>
-  `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+export interface Lesson {
+  name: string;
+  data: string;
+  room: string;
+}
 
-export default function Lessons(): JSX.Element {
-  const [subjects, setSubjects] = useState<Subject[]>([]);
-  const navigate = useNavigate(); // Mova esta linha para dentro da função
+const mockLessons: Lesson[] = [
+  {
+    name: "Construção de software",
+    data: "18/06/2023 18:15:15",
+    room: "317",
+  },
+  {
+    name: "AGES 1",
+    data: "14/06/2023 18:15:15",
+    room: "201",
+  },
+  {
+    name: "Biblioteca de Componentes",
+    data: "13/06/2023",
+    room: "515",
+  },
+  {
+    name: "Segurança de sistemas",
+    data: "12/06/2023 18:15:15",
+    room: "217",
+  },
+];
 
-  const fetchSubjects = useCallback(async () => {
-    const allSubjects = await api({
-      baseURL: "//localhost:8000",
-    }).get<Subject[]>("/lessons/subject");
-
-    setSubjects(allSubjects.data);
-  }, []);
-
-  useEffect(() => {
-    fetchSubjects();
-  }, [fetchSubjects]);
-
-  const handleEdit = () => {
-    // Lógica para manipular o clique no botão de edição
-    console.log("Botão de edição clicado");
-  };
-
-  const handleDelete = () => {
-    // Lógica para manipular o clique no botão de exclusão
-    console.log("Botão de exclusão clicado");
-  };
-
-  const handleNavigateToTypes = () => {
-    navigate('/lessons/types');
-  };
-
-  const handleNavigateToCreateLesson = () => {
-    navigate('/lessons/create');
-  };
-
+export default function Lessons() {
+  const [lessons, setLessons] = useState<Lesson[]>(mockLessons);
 
   return (
-    <Container disableGutters className="lessonsContainer">
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: "primary.main",
+        display: "flex",
+        alignItems: "flex-start",
+        flexDirection: "column",
+        gap: "0.15rem",
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "1rem",
+          alignItems: "center",
+        }}
+      >
+        <MenuBookIcon
+          sx={{ color: "#E78901", width: "40px", height: "40px" }}
+        />
+        <Typography variant="h4" fontWeight={500}>
+          Aulas
+        </Typography>
+      </Box>
+      <Typography
+        sx={{
+          color: "#5D707F",
+          fontWeight: 500,
+          fontSize: "1.5rem",
+          marginBottom: "1rem",
+        }}
+      >
+        Lista de aulas
+      </Typography>
       <Box
         sx={{
           width: "100%",
-          height: "100%",
-          backgroundColor: "primary.main",
           display: "flex",
-          alignItems: "flex-start",
           flexDirection: "column",
           gap: "0.15rem",
-          margin: "1rem",
-          padding: "0.5rem"
+          alignItems: "center",
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "1rem",
-            alignItems: "center",
-          }}
-        >
-          <MenuBookIcon
-            sx={{ color: "#E78901", width: "40px", height: "40px" }}
-          />
-          <Typography variant="h4" fontWeight={500}>
-            Aulas
-          </Typography>
-        </Box>
-        <Typography
-          sx={{
-            color: "#5D707F",
-            fontWeight: 500,
-            fontSize: "1.5rem",
-            marginBottom: "1rem",
-          }}
-        >
-          Lista de aulas
-        </Typography>
-        {subjects.map((lesson) => (
-          <Box
-            key={lesson.name}
-            sx={{
-              width: "70%",
-              backgroundColor: "#FFFFFF",
-              borderRadius: "0.2rem",
-              padding: "0.25rem 1rem",
-              marginBottom: "0.5rem",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Box>
-              <Typography sx={{ fontSize: "1.5rem" }}>{lesson.name}</Typography>
-              <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
-                Data: {formatTime(new Date(lesson.lesson.datetime))}
-              </Typography>
-              <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
-                Sala de aula: {lesson.lesson.classroom}
-              </Typography>
-            </Box>
-            <Box>
-              <IconButton onClick={handleEdit}>
-                <EditIcon />
-              </IconButton>
-              <IconButton onClick={handleDelete} sx={{ color: "red" }}>
-                <DeleteIcon />
-              </IconButton>
-            </Box>
-          </Box>
+        {lessons.map((lesson) => (
+          <LessonItem data={lesson} />
         ))}
       </Box>
-      <div className="buttonContainer">
-        <ButtonYellow text="Todos os tipos" styles={{}} onClick={handleNavigateToTypes} />
-        <ButtonYellow text="Criar Tipos" icon={<Add />} />
-        <ButtonYellow text="Criar" icon={<Add />} onClick={handleNavigateToCreateLesson} />
-      </div>
-    </Container>
+    </Box>
   );
 }
