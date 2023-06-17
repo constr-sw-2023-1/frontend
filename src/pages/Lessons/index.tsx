@@ -1,18 +1,14 @@
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography, IconButton } from "@mui/material";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import Add from "@mui/icons-material/Add"
 import LessonItem from "./components/LessonsItem";
 import { useState } from "react";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import ButtonYellow from "./components/ButtonYellow";
 
 
-export interface Lesson {
-  name: string;
-  data: string;
-  room: string;
-}
-
-const mockLessons: Lesson[] = [
+const mockLessons = [
   {
     name: "Construção de software",
     data: "18/06/2023 18:15:15",
@@ -36,7 +32,17 @@ const mockLessons: Lesson[] = [
 ];
 
 export default function Lessons() {
-  const [lessons, setLessons] = useState<Lesson[]>(mockLessons);
+  const [lessons, setLessons] = useState(mockLessons);
+
+  const handleEdit = () => {
+    // Lógica para manipular o clique no botão de edição
+    console.log("Botão de edição clicado");
+  };
+
+  const handleDelete = () => {
+    // Lógica para manipular o clique no botão de exclusão
+    console.log("Botão de exclusão clicado");
+  };
 
   return (
   <Container>
@@ -76,19 +82,39 @@ export default function Lessons() {
       >
         Lista de aulas
       </Typography>
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          gap: "0.15rem",
-          alignItems: "center",
-        }}
-      >
-        {lessons.map((lesson) => (
-          <LessonItem data={lesson} />
-        ))}
-      </Box>
+      {lessons.map((lesson) => (
+        <Box
+          key={lesson.name}
+          sx={{
+            width: "70%",
+            backgroundColor: "#FFFFFF",
+            borderRadius: "0.2rem",
+            padding: "0.25rem 1rem",
+            marginBottom: "0.5rem",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Box>
+            <Typography sx={{ fontSize: "1.5rem" }}>{lesson.name}</Typography>
+            <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
+              Data: {lesson.data}
+            </Typography>
+            <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
+              Sala de aula: {lesson.room}
+            </Typography>
+          </Box>
+          <Box>
+            <IconButton onClick={handleEdit}>
+              <EditIcon />
+            </IconButton>
+            <IconButton onClick={handleDelete} sx={{ color: "red" }}>
+              <DeleteIcon />
+            </IconButton>
+          </Box>
+        </Box>
+      ))}
     </Box>
     <ButtonYellow text="Todos os tipos" styles={{}} />
     <ButtonYellow text="Criar" icon={<Add />} />
