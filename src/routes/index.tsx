@@ -37,6 +37,7 @@ export default function RoutesComponent() {
         <Route path="/Periodos" element={<Shifts />} />
         <Route path="/create-shift" element={<CreateShiftsPage name={""} />} />
         <Route path="/edit-shift/:id" element={<CreateShiftsPage name={""} />} />
+        <Route path={""} element={<Dashboard />} />
       </Route>
     </Routes>
   );
