@@ -8,30 +8,17 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ButtonYellow from "./components/ButtonYellow";
 import api from "@utils/api";
 
-const mockLessons = [
-  {
-    uuid: "123",
-    name: "Construção de Software",
-    lesson: {
-      uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      datetime: "2023-06-19T23:33:34.955Z",
-      classroom: 312,
-      active: true,
-    },
-    type: {
-      uuid: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      name: "Prática",
-      active: true,
-    },
-  },
-];
+const formatTime = (date: Date) =>
+  `${date.getDate()}/${
+    date.getMonth() + 1
+  }/${date.getFullYear()}  ${date.getHours()}:${date.getMinutes()}`;
 
 export default function Lessons() {
-  const [lessons, setLessons] = useState(mockLessons);
+  const [lessons, setLessons] = useState([] as any[]);
 
   const fetchLessons = useCallback(async () => {
     const allLessons = await api({
-      baseURL: "ec2-18-220-210-173.us-east-2.compute.amazonaws.com:8000",
+      baseURL: "//localhost:8000",
     }).get<any>("/lessons/subject");
     console.log(allLessons.data);
     setLessons(allLessons.data);
@@ -106,7 +93,7 @@ export default function Lessons() {
             <Box>
               <Typography sx={{ fontSize: "1.5rem" }}>{lesson.name}</Typography>
               <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
-                Data: {lesson.lesson.datetime}
+                Data: {formatTime(new Date(lesson.lesson.datetime))}
               </Typography>
               <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
                 Sala de aula: {lesson.lesson.classroom}
