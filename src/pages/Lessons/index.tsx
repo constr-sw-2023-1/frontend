@@ -1,32 +1,31 @@
 import { Box, Button, Container, Typography, IconButton } from "@mui/material";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import Add from "@mui/icons-material/Add";
-import LessonItem from "./components/LessonsItem";
 import { useCallback, useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ButtonYellow from "./components/ButtonYellow";
 import api from "@utils/api";
+import { Subject } from "./model/subject";
 
 const formatTime = (date: Date) =>
-  `${date.getDate()}/${
-    date.getMonth() + 1
+  `${date.getDate()}/${date.getMonth() + 1
   }/${date.getFullYear()}  ${date.getHours()}:${date.getMinutes()}`;
 
 export default function Lessons() {
-  const [lessons, setLessons] = useState([] as any[]);
+  const [subjects, setSubjects] = useState([] as Subject[]);
 
-  const fetchLessons = useCallback(async () => {
-    const allLessons = await api({
+  const fetchSubjects = useCallback(async () => {
+    const allSubjects = await api({
       baseURL: "//localhost:8000",
-    }).get<any>("/lessons/subject");
-    console.log(allLessons.data);
-    setLessons(allLessons.data);
+    }).get<Subject[]>("/lessons/subject");
+
+    setSubjects(allSubjects.data);
   }, []);
 
   useEffect(() => {
-    fetchLessons();
-  }, [fetchLessons]);
+    fetchSubjects();
+  }, [fetchSubjects]);
 
   const handleEdit = () => {
     // Lógica para manipular o clique no botão de edição
@@ -76,7 +75,7 @@ export default function Lessons() {
         >
           Lista de aulas
         </Typography>
-        {lessons.map((lesson) => (
+        {subjects.map((lesson) => (
           <Box
             key={lesson.name}
             sx={{
