@@ -1,10 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Lesson } from "..";
+import { Subject } from "../model/subject";
 
 interface LessonItemProps {
-  data: Lesson;
+  data: Subject;
 }
 
 export default function LessonItem({ data }: LessonItemProps) {
@@ -31,10 +31,10 @@ export default function LessonItem({ data }: LessonItemProps) {
       >
         <Typography sx={{ fontSize: "1.5rem" }}>{data.name}</Typography>
         <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
-          Data: {data.data}
+          Data: {data.lesson.datetime}
         </Typography>
         <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
-          Sala de aula: {data.room}
+          Sala de aula: {data.lesson.classroom}
         </Typography>
       </Box>
       <EditIcon />
