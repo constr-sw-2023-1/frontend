@@ -7,13 +7,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ButtonYellow from "./components/ButtonYellow";
 import api from "@utils/api";
 import { Subject } from "./model/subject";
+import "./Lessons.css";
 
 const formatTime = (date: Date) =>
   `${date.getDate()}/${date.getMonth() + 1
   }/${date.getFullYear()}  ${date.getHours()}:${date.getMinutes()}`;
 
-export default function Lessons() {
-  const [subjects, setSubjects] = useState([] as Subject[]);
+export default function Lessons(): JSX.Element {
+  const [subjects, setSubjects] = useState<Subject[]>([]);
 
   const fetchSubjects = useCallback(async () => {
     const allSubjects = await api({
@@ -38,7 +39,7 @@ export default function Lessons() {
   };
 
   return (
-    <Container disableGutters>
+    <Container disableGutters className="lessonsContainer">
       <Box
         sx={{
           width: "100%",
@@ -48,6 +49,8 @@ export default function Lessons() {
           alignItems: "flex-start",
           flexDirection: "column",
           gap: "0.15rem",
+          margin: "1rem",
+          padding: "0.5rem"
         }}
       >
         <Box
@@ -109,8 +112,11 @@ export default function Lessons() {
           </Box>
         ))}
       </Box>
-      <ButtonYellow text="Todos os tipos" styles={{}} />
-      <ButtonYellow text="Criar" icon={<Add />} />
+      <div className="buttonContainer">
+        <ButtonYellow text="Todos os tipos" styles={{}} />
+        <ButtonYellow text="Criar Tipos" icon={<Add />} />
+        <ButtonYellow text="Criar" icon={<Add />} />
+      </div>
     </Container>
   );
 }
