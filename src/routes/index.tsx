@@ -22,7 +22,7 @@ export default function RoutesComponent() {
     <Routes>
       <Route path={""} element={<PrivateRoute />}>
         <Route path={""} element={<PrivatePages />}>
-          {/* <Route path={""} element={<Dashboard />} /> */}
+          <Route path={""} element={<Dashboard />} />
         </Route>
         <Route path="/" element={<Dashboard />} />
         <Route path="lessons" element={<Lessons />} />
