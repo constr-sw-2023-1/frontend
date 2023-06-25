@@ -1,33 +1,27 @@
-import { Box, Button, Container, Typography, IconButton } from "@mui/material";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
+import { Box, Container, Typography, IconButton } from "@mui/material";
 import Add from "@mui/icons-material/Add";
 import { useCallback, useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ButtonYellow from "./components/ButtonYellow";
 import api from "@utils/api";
-import { Subject } from "./model/subject";
+import { Type } from "./model/type";
 import "./Lessons.css";
-import { useNavigate } from 'react-router-dom';
 
-const formatTime = (date: Date) =>
-  `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+export default function Types(): JSX.Element {
+  const [types, setType] = useState<Type[]>([]);
 
-export default function Lessons(): JSX.Element {
-  const [subjects, setSubjects] = useState<Subject[]>([]);
-  const navigate = useNavigate(); // Mova esta linha para dentro da função
-
-  const fetchSubjects = useCallback(async () => {
-    const allSubjects = await api({
+  const fetchTypes = useCallback(async () => {
+    const allTypes = await api({
       baseURL: "//localhost:8000",
-    }).get<Subject[]>("/lessons/subject");
+    }).get<Type[]>("/lessons/subject/type/");
 
-    setSubjects(allSubjects.data);
+    setType(allTypes.data);
   }, []);
 
   useEffect(() => {
-    fetchSubjects();
-  }, [fetchSubjects]);
+    fetchTypes();
+  }, [fetchTypes]);
 
   const handleEdit = () => {
     // Lógica para manipular o clique no botão de edição
@@ -38,15 +32,6 @@ export default function Lessons(): JSX.Element {
     // Lógica para manipular o clique no botão de exclusão
     console.log("Botão de exclusão clicado");
   };
-
-  const handleNavigateToTypes = () => {
-    navigate('/lessons/types');
-  };
-
-  const handleNavigateToCreateLesson = () => {
-    navigate('/lessons/create');
-  };
-
 
   return (
     <Container disableGutters className="lessonsContainer">
@@ -71,26 +56,13 @@ export default function Lessons(): JSX.Element {
             alignItems: "center",
           }}
         >
-          <MenuBookIcon
-            sx={{ color: "#E78901", width: "40px", height: "40px" }}
-          />
           <Typography variant="h4" fontWeight={500}>
-            Aulas
+            Tipos
           </Typography>
         </Box>
-        <Typography
-          sx={{
-            color: "#5D707F",
-            fontWeight: 500,
-            fontSize: "1.5rem",
-            marginBottom: "1rem",
-          }}
-        >
-          Lista de aulas
-        </Typography>
-        {subjects.map((lesson) => (
+        {types.map((type) => (
           <Box
-            key={lesson.name}
+            key={type.name}
             sx={{
               width: "70%",
               backgroundColor: "#FFFFFF",
@@ -103,13 +75,7 @@ export default function Lessons(): JSX.Element {
             }}
           >
             <Box>
-              <Typography sx={{ fontSize: "1.5rem" }}>{lesson.name}</Typography>
-              <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
-                Data: {formatTime(new Date(lesson.lesson.datetime))}
-              </Typography>
-              <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
-                Sala de aula: {lesson.lesson.classroom}
-              </Typography>
+              <Typography sx={{ fontSize: "1.5rem" }}>{type.name}</Typography>
             </Box>
             <Box>
               <IconButton onClick={handleEdit}>
@@ -123,9 +89,7 @@ export default function Lessons(): JSX.Element {
         ))}
       </Box>
       <div className="buttonContainer">
-        <ButtonYellow text="Todos os tipos" styles={{}} onClick={handleNavigateToTypes} />
-        <ButtonYellow text="Criar Tipos" icon={<Add />} />
-        <ButtonYellow text="Criar" icon={<Add />} onClick={handleNavigateToCreateLesson} />
+        <ButtonYellow text="Criar Tipo" icon={<Add />} />
       </div>
     </Container>
   );

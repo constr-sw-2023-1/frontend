@@ -7,6 +7,7 @@ interface ButtonYellowProps {
   text: string;
   icon?: React.ReactNode;
   styles?: React.CSSProperties;
+  onClick?: () => void; // Adicionado o onClick
 }
 
 const ButtonYellow: React.FC<ButtonYellowProps> = ({ text, icon, styles, ...props }) => {
