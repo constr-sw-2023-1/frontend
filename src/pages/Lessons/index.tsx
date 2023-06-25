@@ -8,13 +8,14 @@ import ButtonYellow from "./components/ButtonYellow";
 import api from "@utils/api";
 import { Subject } from "./model/subject";
 import "./Lessons.css";
+import { useNavigate } from 'react-router-dom';
 
 const formatTime = (date: Date) =>
-  `${date.getDate()}/${date.getMonth() + 1
-  }/${date.getFullYear()}  ${date.getHours()}:${date.getMinutes()}`;
+  `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
 
 export default function Lessons(): JSX.Element {
   const [subjects, setSubjects] = useState<Subject[]>([]);
+  const navigate = useNavigate(); // Mova esta linha para dentro da função
 
   const fetchSubjects = useCallback(async () => {
     const allSubjects = await api({
@@ -37,6 +38,15 @@ export default function Lessons(): JSX.Element {
     // Lógica para manipular o clique no botão de exclusão
     console.log("Botão de exclusão clicado");
   };
+
+  const handleNavigateToTypes = () => {
+    navigate('/lessons/types');
+  };
+
+  const handleNavigateToCreateLesson = () => {
+    navigate('/lessons/create');
+  };
+
 
   return (
     <Container disableGutters className="lessonsContainer">
@@ -113,9 +123,9 @@ export default function Lessons(): JSX.Element {
         ))}
       </Box>
       <div className="buttonContainer">
-        <ButtonYellow text="Todos os tipos" styles={{}} />
+        <ButtonYellow text="Todos os tipos" styles={{}} onClick={handleNavigateToTypes} />
         <ButtonYellow text="Criar Tipos" icon={<Add />} />
-        <ButtonYellow text="Criar" icon={<Add />} />
+        <ButtonYellow text="Criar" icon={<Add />} onClick={handleNavigateToCreateLesson} />
       </div>
     </Container>
   );
