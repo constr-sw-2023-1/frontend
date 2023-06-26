@@ -4,7 +4,6 @@ import PrivateRoute from "./PrivateRoute";
 import Lessons from "@pages/Lessons";
 import Types from "@pages/Lessons/types";
 import CreateLesson from "@pages/Lessons/CreateLesson";
-import ProfessorList from "@pages/PrivatePages/Professors";
 import CreateProfessor from "@pages/PrivatePages/Professors/CreateProfessor";
 import PrivatePages from "@pages/PrivatePages";
 import CreateShiftsPage from "@pages/PrivatePages/Shifts/CreateShiftsPage";
@@ -14,6 +13,7 @@ import CreateCertification from "@pages/PrivatePages/Certifications/CreateCertif
 import Classes from "@pages/PrivatePages/Classes"
 import CreateEdit from "@pages/PrivatePages/Classes/CreateEdit/CreateEdit"
 import Login from "@pages/Login";
+import ProfessorList from "@pages/Professors";
 
 export default function RoutesComponent() {
   return (
