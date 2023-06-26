@@ -11,9 +11,13 @@ import { useNavigate } from 'react-router-dom';
 
 const Students = () => {
 
-    const handleDelete = () => {
-        console.log("Deletado");
+    const handleDelete = (uuid: string) => {
         //Fazer a chamada para a API para deletar o aluno
+
+        setStudents(prevStudents => {
+          return prevStudents.filter((student) => student.uuid !== uuid)
+        })
+        
     };
     const [students, setStudents] = useState<Student[]>([]);
     const navigate = useNavigate();
@@ -106,7 +110,7 @@ const Students = () => {
                         <IconButton onClick={() => { }}>
                             <EditIcon />
                         </IconButton>
-                        <IconButton onClick={handleDelete} sx={{ color: "red" }}>
+                        <IconButton onClick={() => handleDelete(student.uuid)} sx={{ color: "red" }}>
                             <DeleteIcon />
                         </IconButton>
                     </Box>
