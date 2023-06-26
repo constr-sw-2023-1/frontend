@@ -1,18 +1,46 @@
-import { useTheme } from "@emotion/react";
-import { Box, Typography } from "@mui/material";
+import { Box, CircularProgress, List, useTheme } from "@mui/material";
+import HeaderCoursesComponent from "../components/HeaderCoursesComponent";
+import CourseCardComponent from "../components/CourseCardComponent";
+import useCourse from "@hooks/useCourse";
 
 export default function CoursesListPage() {
-  const theme = useTheme()
+  const { palette: { primary, secondary } } = useTheme()
+  const { loading, courses } = useCourse()
+
+  function handleLoading() {
+    return loading ?
+      <Box sx={{
+        display: 'flex',
+        width: '70%',
+        height: '80%',
+      }}>
+        <CircularProgress />
+      </Box>
+      :
+      <List sx={{
+        width: '70%',
+        height: '80%',
+      }}>
+        {courses?.map(({ id, name, codCred, numCredits }) => (
+          <CourseCardComponent
+            key={id}
+            name={name}
+            codCred={codCred}
+            numCredits={numCredits}
+          />
+        ))}
+      </List>
+  }
 
   return (
     <Box sx={{
-      flex: 1
+      width: '100%',
+      height: '100%',
+      py: '40px',
+      px: '30px',
     }}>
-      <Box sx={{
-        backgroundColor: 'red'
-      }}>
-        <Typography>{'Courses list'}</Typography>
-      </Box>
+      <HeaderCoursesComponent title={"Disciplinas"} />
+      {handleLoading()}
     </Box>
   );
 }

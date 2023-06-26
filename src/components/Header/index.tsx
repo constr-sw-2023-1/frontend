@@ -17,11 +17,6 @@ import { useState, MouseEvent } from "react";
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export default function Header() {
-  const {
-    palette: {
-      primary: { main },
-    },
-  } = useTheme();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
@@ -34,7 +29,7 @@ export default function Header() {
 
   return (
     <AppBar position="fixed">
-      <Container maxWidth="xl" sx={{ backgroundColor: main }}>
+      <Container maxWidth="xl" sx={{ backgroundColor: '#EEF1EF' }}>
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
