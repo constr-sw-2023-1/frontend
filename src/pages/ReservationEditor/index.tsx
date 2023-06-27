@@ -8,7 +8,6 @@ const ReservationEditor = () => {
   const { state } = useLocation();
   const reservation = state;
   const navigate = useNavigate();
-  console.log(dateFormatter(reservation.reservaInicio));
   const handleReservationSaveClick = () => {
     navigate("/");
   };
