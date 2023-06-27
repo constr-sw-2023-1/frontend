@@ -1,47 +1,22 @@
+import { useReservations } from "../../hooks/use-reservation";
+import React, { useEffect, useState } from "react";
 import Header from "@components/Header";
 import { Box, Container } from "@mui/material";
 import ReservationIcon from "@mui/icons-material/PendingActions";
 import ReservationCard from "@components/ReservationCard";
 
-export default function Dashboard() {
-  const list = [
-    {
-      titulo: "reserva 1",
-      classe: "classe 1",
-      reservaInicio: "01/01/2023",
-      reservaFim: "31/12/2023",
-    },
-    {
-      titulo: "reserva 2",
-      classe: "classe 2",
-      reservaInicio: "01/01/2023",
-      reservaFim: "31/12/2023",
-    },
-    {
-      titulo: "reserva 3",
-      classe: "classe 3",
-      reservaInicio: "01/01/2023",
-      reservaFim: "31/12/2023",
-    },
-    {
-      titulo: "reserva 4",
-      classe: "classe 4",
-      reservaInicio: "01/01/2023",
-      reservaFim: "31/12/2023",
-    },
-    {
-      titulo: "reserva 5",
-      classe: "classe 5",
-      reservaInicio: "01/01/2023",
-      reservaFim: "31/12/2023",
-    },
-    {
-      titulo: "reserva 6",
-      classe: "classe 6",
-      reservaInicio: "01/01/2023",
-      reservaFim: "31/12/2023",
-    },
-  ];
+const Dashboard = () => {
+  const [reservations, setReservations] = useState([]);
+  useEffect(() => {
+    const fetchReservations = async () => {
+      const { getReservations } = useReservations();
+      const response = await getReservations();
+      setReservations(response);
+    };
+    fetchReservations();
+  }, []);
+
+  console.log(reservations);
 
   return (
     <Container>
@@ -90,11 +65,15 @@ export default function Dashboard() {
             width: "640px",
           }}
         >
-          {list.map((item) => (
-            <ReservationCard reservation={item} />
-          ))}
+          {reservations?.length
+            ? reservations.map((item, index) => (
+                <ReservationCard reservation={item} key={index} />
+              ))
+            : "Não há reservas."}
         </Container>
       </Container>
     </Container>
   );
-}
+};
+
+export default Dashboard;
