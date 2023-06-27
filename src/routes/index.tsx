@@ -1,7 +1,7 @@
-import Dashboard from "@pages/Dashboard";
 import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import PrivatePages from "@pages/PrivatePages";
+import Dashboard from "@pages/PrivatePages/Dashboard";
 import Classes from "@pages/PrivatePages/Classes"
 
 export default function RoutesComponent() {
@@ -9,9 +9,9 @@ export default function RoutesComponent() {
     <Routes>
       <Route path={""} element={<PrivateRoute />}>
         <Route path={""} element={<PrivatePages />}>
-          {/* <Route path={""} element={<Dashboard />} /> */}
+          <Route path={"home"} element={<Dashboard />} />
         </Route>
-        <Route path="/Turmas" element={<Classes/>}/>
+        <Route path="/Turmas" element={<Classes />} />
       </Route>
     </Routes>
   );
