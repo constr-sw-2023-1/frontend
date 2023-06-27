@@ -5,6 +5,7 @@ import Lessons from "@pages/Lessons";
 import Types from "@pages/Lessons/types";
 import CreateLesson from "@pages/Lessons/CreateLesson";
 import ProfessorList from "@pages/Professors";
+import CreateProfessor from "@pages/Professors/CreateProfessor";
 
 export default function RoutesComponent() {
   return (
@@ -15,6 +16,7 @@ export default function RoutesComponent() {
         <Route path="lessons/types" element={<Types />} />
         <Route path="lessons/create" element={<CreateLesson />} />
         <Route path="/professors" element={<ProfessorList />} />
+        <Route path="/professors/create" element={<CreateProfessor />} />
       </Route>
     </Routes>
   );
