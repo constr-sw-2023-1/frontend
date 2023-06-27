@@ -6,7 +6,14 @@ import DomainIcon from '@mui/icons-material/Domain';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Classes = () => {
-  const [classes, setClasses] = useState([]);
+  const [classes, setClasses] = useState<classeInterface[]>([]);
+
+  interface classeInterface {
+    id: string,
+    semester: number,
+    year: number,
+    numClass: number,
+  }
 
   const getAll = async () => {
     const response = await fetch('http://localhost:3000/api/classes', {
@@ -22,14 +29,13 @@ const Classes = () => {
   }, [])
 
   const createClass = () => {
-    setClasses([...classes, `Turma ${classes.length}`]);
   };
 
-  const editClass = (id, currentValue) => {
+  const editClass = (id:string, currentValue:classeInterface) => {
     //todo: go to edit page
   };
 
-  const deleteClass = async (id) => {
+  const deleteClass = async (id:string) => {
     const response = await fetch(`http://localhost:3000/api/classes/${id}`, {
       method: "DELETE"
     });
@@ -38,7 +44,7 @@ const Classes = () => {
     }
   };
 
-  const listItem = (index, classe) => {
+  const listItem = (index:number, classe:classeInterface) => {
     const title = `Turma ${classe.numClass}`;
 
     return (
