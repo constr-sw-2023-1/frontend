@@ -2,18 +2,18 @@ import { Box, BoxProps, Typography, useTheme } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export interface CourseCardProps extends BoxProps {
+export interface CardCourseProps extends BoxProps {
     name: string
     codCred: string
     numCredits: number
 }
 
-export default function CourseCardComponent({
+export default function CardCourseComponent({
     name,
     codCred,
     numCredits,
     ...props
-}: CourseCardProps) {
+}: CardCourseProps) {
     const { palette: { text, error } } = useTheme()
 
     return (
@@ -28,7 +28,6 @@ export default function CourseCardComponent({
             alignItems: 'center',
             justifyContent: 'space-between',
             borderRadius: '5px',
-            mb: '12px',
             cursor: 'pointer',
             transition: '0.4s',
             ":active": {

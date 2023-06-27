@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, createContext, useEffect, useState } from "react";
 import coursesListPage from "@assets/mocks/coursesListPage";
 import ToastComponent from "@components/ToastComponent";
 import ICourse from "@shared/ICourse";
@@ -19,41 +19,43 @@ function CourseProvider({ children }: CourseProviderProps) {
     const [courses, setCourses] = useState<ICourse[]>([])
 
     useEffect(() => {
-        loadCourses()
+        loadCourses('test')
     }, [])
 
-    async function loadCourses() {
-        setLoading(true)
+    async function loadCourses(accessToken: string) {
+        if (accessToken) {
+            setLoading(true)
 
-        try {
-            const response = await new Promise<ICourse[] | void>((resolve, reject) => {
-                setTimeout(() => {
-                    resolve()
-                }, 2000);
-            })
+            try {
+                const response = await new Promise<ICourse[] | void>((resolve, reject) => {
+                    setTimeout(() => {
+                        resolve()
+                    }, 2000);
+                })
 
-            setCourses(coursesListPage)
-            setLoading(false)
+                setCourses(coursesListPage)
+                setLoading(false)
 
-            return response as ICourse[]
-        } catch (error: any) {
-            if (!error?.response) {
-                <ToastComponent message={"Erro ao carregar disciplinas"} />
-                console.error('Internal Server Error')
-            } else {
-                <ToastComponent message={error?.status} />
+                return response as ICourse[]
+            } catch (error: any) {
+                if (!error?.response) {
+                    <ToastComponent message={"Erro ao carregar disciplinas"} />
+                    console.error('Internal Server Error')
+                } else {
+                    <ToastComponent message={error?.status} />
+                }
+
+                setLoading(false)
+
+                return error?.response
             }
-
-            setLoading(false)
-
-            return error?.response
         }
     }
 
     return (
         <CourseContext.Provider value={{
             loading,
-            courses
+            courses,
         }}>
             {children}
         </CourseContext.Provider>
