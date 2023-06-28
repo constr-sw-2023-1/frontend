@@ -1,6 +1,25 @@
 .studentsContainer {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
     background-color: #EEF1EF;
+}
+
+.createStudentsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    background-color: #EEF1EF;
+}
+
+.studentsInput {
+    background-color: #ffffff;
 }
 
 .buttonContainer {
