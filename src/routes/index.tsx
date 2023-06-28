@@ -2,7 +2,7 @@ import Dashboard from "@pages/Dashboard";
 import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import Lessons from "@pages/Lessons";
-import Types from "@pages/Lessons/types";
+import Types from "@pages/Lessons/Types";
 import CreateLesson from "@pages/Lessons/CreateLesson";
 
 export default function RoutesComponent() {

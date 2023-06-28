@@ -9,14 +9,14 @@ import { Type } from "./model/type";
 import "./Lessons.css";
 
 export default function Types(): JSX.Element {
-  const [types, setType] = useState<Type[]>([]);
+  const [types, setTypes] = useState<Type[]>([]);
 
   const fetchTypes = useCallback(async () => {
     const allTypes = await api({
       baseURL: "//localhost:8000",
     }).get<Type[]>("/lessons/subject/type/");
 
-    setType(allTypes.data);
+    setTypes(allTypes.data);
   }, []);
 
   useEffect(() => {
@@ -60,33 +60,35 @@ export default function Types(): JSX.Element {
             Tipos
           </Typography>
         </Box>
-        {types.map((type) => (
-          <Box
-            key={type.name}
-            sx={{
-              width: "70%",
-              backgroundColor: "#FFFFFF",
-              borderRadius: "0.2rem",
-              padding: "0.25rem 1rem",
-              marginBottom: "0.5rem",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Box>
-              <Typography sx={{ fontSize: "1.5rem" }}>{type.name}</Typography>
+        {types
+          .filter((type) => type.active) // Filtra apenas os tipos com active = true
+          .map((type) => (
+            <Box
+              key={type.name}
+              sx={{
+                width: "70%",
+                backgroundColor: "#FFFFFF",
+                borderRadius: "0.2rem",
+                padding: "0.25rem 1rem",
+                marginBottom: "0.5rem",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Box>
+                <Typography sx={{ fontSize: "1.5rem" }}>{type.name}</Typography>
+              </Box>
+              <Box>
+                <IconButton onClick={handleEdit}>
+                  <EditIcon />
+                </IconButton>
+                <IconButton onClick={handleDelete} sx={{ color: "red" }}>
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
             </Box>
-            <Box>
-              <IconButton onClick={handleEdit}>
-                <EditIcon />
-              </IconButton>
-              <IconButton onClick={handleDelete} sx={{ color: "red" }}>
-                <DeleteIcon />
-              </IconButton>
-            </Box>
-          </Box>
-        ))}
+          ))}
       </Box>
       <div className="buttonContainer">
         <ButtonYellow text="Criar Tipo" icon={<Add />} />

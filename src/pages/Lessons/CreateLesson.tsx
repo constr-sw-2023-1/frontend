@@ -12,10 +12,6 @@ export default function CreateLesson(): JSX.Element {
   const [classroom, setClassroom] = useState("");
   const navigate = useNavigate();
   
-  const handleNavigateToTypes = () => {
-    navigate('/lessons/types');
-  };
-
   const handleNavigateToLesson = () => {
     navigate('/lessons');
   };
@@ -25,7 +21,12 @@ export default function CreateLesson(): JSX.Element {
   };
 
   const handleClassroomChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setClassroom(event.target.value);
+    const inputValue = event.target.value;
+  
+    // Verifica se o valor digitado é um número
+    if (!isNaN(Number(inputValue))) {
+      setClassroom(inputValue);
+    }
   };
 
   const handleSaveLesson = async () => {
@@ -37,7 +38,7 @@ export default function CreateLesson(): JSX.Element {
 
       await axios.post("http://localhost:8000/lesson/", lessonData);
 
-      handleNavigateToTypes(); // Redirecionar após o salvamento
+      handleNavigateToLesson(); // Redirecionar após o salvamento
     } catch (error) {
       console.log("Erro ao salvar aula:", error);
     }
@@ -65,7 +66,12 @@ export default function CreateLesson(): JSX.Element {
             timeFormat="HH:mm"
             timeIntervals={15}
             timeCaption="Horário"
-            
+            customInput={
+              <input
+                className="customDatePickerInput"
+                style={{ height: "40px", width: "350px" , fontSize: "16px" }} // Estilos personalizados
+              />
+            }
           />
           <Typography variant="h5" fontWeight={500}>
             Escreva o número da classe:
@@ -75,12 +81,13 @@ export default function CreateLesson(): JSX.Element {
             value={classroom}
             onChange={handleClassroomChange}
             className="classroomInput"
+            style={{ height: "40px", width: "350px", fontSize: "16px" }} // Estilos personalizados
           />
         </Box>
       </Box>
       <div className="buttonContainer">
         <ButtonYellow text="Cancelar" styles={{}} onClick={handleNavigateToLesson} />
-        <ButtonYellow text="Salvar" styles={{}} onClick={handleNavigateToLesson} />
+        <ButtonYellow text="Salvar" styles={{}} onClick={handleSaveLesson} />
       </div>
     </Container>
   );

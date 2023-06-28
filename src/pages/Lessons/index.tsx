@@ -88,39 +88,41 @@ export default function Lessons(): JSX.Element {
         >
           Lista de aulas
         </Typography>
-        {subjects.map((lesson) => (
-          <Box
-            key={lesson.name}
-            sx={{
-              width: "70%",
-              backgroundColor: "#FFFFFF",
-              borderRadius: "0.2rem",
-              padding: "0.25rem 1rem",
-              marginBottom: "0.5rem",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Box>
-              <Typography sx={{ fontSize: "1.5rem" }}>{lesson.name}</Typography>
-              <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
-                Data: {formatTime(new Date(lesson.lesson.datetime))}
-              </Typography>
-              <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
-                Sala de aula: {lesson.lesson.classroom}
-              </Typography>
+        {subjects
+          .filter((subject) => subject.active) // Filtra apenas os subjects com active = true
+          .map((lesson) => (
+            <Box
+              key={lesson.name}
+              sx={{
+                width: "70%",
+                backgroundColor: "#FFFFFF",
+                borderRadius: "0.2rem",
+                padding: "0.25rem 1rem",
+                marginBottom: "0.5rem",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Box>
+                <Typography sx={{ fontSize: "1.5rem" }}>{lesson.name}</Typography>
+                <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
+                  Data: {formatTime(new Date(lesson.lesson.datetime))}
+                </Typography>
+                <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
+                  Sala de aula: {lesson.lesson.classroom}
+                </Typography>
+              </Box>
+              <Box>
+                <IconButton onClick={handleEdit}>
+                  <EditIcon />
+                </IconButton>
+                <IconButton onClick={handleDelete} sx={{ color: "red" }}>
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
             </Box>
-            <Box>
-              <IconButton onClick={handleEdit}>
-                <EditIcon />
-              </IconButton>
-              <IconButton onClick={handleDelete} sx={{ color: "red" }}>
-                <DeleteIcon />
-              </IconButton>
-            </Box>
-          </Box>
-        ))}
+          ))}
       </Box>
       <div className="buttonContainer">
         <ButtonYellow text="Todos os tipos" styles={{}} onClick={handleNavigateToTypes} />

@@ -1,6 +1,7 @@
 .lessonsContainer {
     position: relative;
     background-color: #eef1ef;
+    padding: 10px;
   }
   
   .buttonContainer {
