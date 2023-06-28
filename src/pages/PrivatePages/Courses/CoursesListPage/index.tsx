@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router";
 import { Box, Skeleton, Stack } from "@mui/material";
+import { Add } from "@mui/icons-material";
 import useCourse from "@hooks/useCourse";
 import HeaderCoursesComponent from "../components/HeaderCoursesComponent";
 import CardCourseComponent from "../components/CardCourseComponent";
@@ -6,6 +8,7 @@ import ButtonCoursesComponent from "../components/ButtonCoursesComponent";
 
 export default function CoursesListPage() {
   const { loading, courses } = useCourse()
+  const navigate = useNavigate()
 
   function Skeletons() {
     const skeletons = [1, 2, 3, 4, 5, 6]
@@ -43,12 +46,14 @@ export default function CoursesListPage() {
     </Stack>
   }
 
+  function handleNavigateToAddCourse() {
+    navigate('add')
+  }
+
   return (
     <Box sx={{
       width: '100%',
       height: '100%',
-      py: '40px',
-      px: '30px',
     }}>
       <HeaderCoursesComponent title={"Disciplinas"} />
       {handleRender()}
@@ -59,7 +64,14 @@ export default function CoursesListPage() {
         alignItems: 'center',
         justifyContent: 'flex-end'
       }}>
-        <ButtonCoursesComponent content={'Criar'} />
+        <ButtonCoursesComponent
+          content={'Criar'}
+          icon={<Add sx={{
+            color: 'black',
+            mr: '0.5rem'
+          }} />}
+          onClick={handleNavigateToAddCourse}
+        />
       </Box>
     </Box>
   );

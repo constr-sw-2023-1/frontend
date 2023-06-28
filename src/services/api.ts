@@ -18,4 +18,16 @@ async function loadCourses(accessToken: string) {
     return response as AxiosResponse<ICourse[]>
 }
 
-export { loadCourses }
+async function addCourse(course: ICourse, accessToken: string) {
+    const config: AxiosRequestConfig = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    }
+    const response = await axios.post<void>(`${uri}/`, course, config)
+
+    return response as AxiosResponse<void>
+}
+
+export { loadCourses, addCourse }

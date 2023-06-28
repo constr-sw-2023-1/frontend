@@ -4,15 +4,17 @@ import {
     useEffect,
     useState
 } from "react";
+import { AxiosResponse } from "axios";
 import coursesListPage from "@assets/mocks/coursesListPage";
 import ToastComponent from "@components/ToastComponent";
 import ICourse from "@shared/ICourse";
+import { IAddCourse } from "@shared/IAddCourse";
 import * as api from '@services/api'
-import { AxiosResponse } from "axios";
 
 interface CourseContextProps {
     loading: boolean
     courses: ICourse[]
+    addCourse: (course: IAddCourse, accessToken: string) => Promise<AxiosResponse<void>>
 }
 
 const CourseContext = createContext<CourseContextProps>({} as CourseContextProps);
@@ -44,12 +46,12 @@ function CourseProvider({ children }: CourseProviderProps) {
                 setCourses(coursesListPage)
                 setLoading(false)
 
-                return response as ICourse[]
                 // return response as AxiosResponse<ICourse[]>
+                return response as ICourse[]
             } catch (error: any) {
                 if (!error?.response) {
                     <ToastComponent
-                        message={"Erro ao carregar disciplinas"}
+                        message={"Erro no servidor interno"}
                         severity={'error'}
                         color={'error'}
                     />
@@ -68,10 +70,55 @@ function CourseProvider({ children }: CourseProviderProps) {
         }
     }
 
+    async function addCourse(course: IAddCourse, accessToken: string) {
+        setLoading(true)
+
+        try {
+            // const response = await api.addCourse(accessToken)
+            const response = await new Promise<void>((resolve, reject) => {
+                setTimeout(() => {
+                    resolve()
+                }, 2000);
+            })
+
+            setCourses(coursesListPage)
+            // setCourses(current => [data, ...current])
+            setLoading(false)
+
+            // return response as AxiosResponse<void>
+            return response as void
+        } catch (error: any) {
+            if (!error?.response) {
+                <ToastComponent
+                    message={"Erro ao adicionar disciplina"}
+                    severity={'error'}
+                    color={'error'}
+                />
+            } else if (error?.status === 400) {
+                <ToastComponent
+                    message={"Erro ao adicionar disciplina"}
+                    severity={'error'}
+                    color={'error'}
+                />
+            } else {
+                <ToastComponent
+                    message={error?.status}
+                    severity={'error'}
+                    color={'error'}
+                />
+            }
+
+            setLoading(false)
+
+            return error?.response
+        }
+    }
+
     return (
         <CourseContext.Provider value={{
             loading,
             courses,
+            addCourse
         }}>
             {children}
         </CourseContext.Provider>

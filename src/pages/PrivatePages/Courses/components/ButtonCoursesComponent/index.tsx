@@ -1,12 +1,13 @@
-import { Add } from "@mui/icons-material"
 import { Button, ButtonProps, Typography, useTheme } from "@mui/material"
+import { ReactElement } from "react";
 
 interface ButtonCoursesProps extends ButtonProps {
     content: string
+    icon: ReactElement
 }
 
-export default function ButtonCoursesComponent({ content, ...props }: ButtonCoursesProps) {
-    const { palette: { secondary, text } } = useTheme()
+export default function ButtonCoursesComponent({ content, icon, ...props }: ButtonCoursesProps) {
+    const { palette: { secondary } } = useTheme()
 
     return <Button sx={{
         height: '48px',
@@ -15,10 +16,7 @@ export default function ButtonCoursesComponent({ content, ...props }: ButtonCour
         bgcolor: secondary.main,
         borderRadius: '25px',
     }} {...props}>
-        <Add sx={{
-            color: 'black',
-            mr: '1rem'
-        }} />
+        {icon}
         <Typography sx={{
             color: 'black',
             fontWeight: 500,

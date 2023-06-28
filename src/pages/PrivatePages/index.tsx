@@ -5,12 +5,37 @@ import { Outlet } from "react-router-dom";
 export default function PrivatePages() {
   return (
     <Box sx={{
-      display: 'flex',
       width: '100vw',
       height: '100vh',
+      display: 'flex',
+      flexDirection: 'row'
     }}>
-      <Header />
-      <Outlet />
+      <Box sx={{
+        width: '20%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
+      </Box>
+      <Box sx={{
+        width: '80%',
+        height: '100%',
+      }}>
+        <Box sx={{
+          width: '100%',
+          height: '10%',
+        }}>
+          <Header />
+        </Box>
+        <Box sx={{
+          width: '100%',
+          height: '90%',
+          py: '40px',
+          px: '30px',
+        }}>
+          <Outlet />
+        </Box>
+      </Box>
     </Box>
   );
 }

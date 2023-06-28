@@ -2,7 +2,7 @@ export default interface ICourse {
     id: string
     name: string
     codCred: string
-    // books: []
+    books: string
     numCredits: number
     description: string
 }
