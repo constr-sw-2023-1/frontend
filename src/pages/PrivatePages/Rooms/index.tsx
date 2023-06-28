@@ -33,7 +33,9 @@ const Rooms: React.FC = () => {
                 <h1>Criar/Editar sala</h1>
             </Box>
 
-            <select value={linguagem1} onChange={handleLinguagem1Change}>
+            <select style={{
+                width: '424px'
+            }} value={linguagem1} onChange={handleLinguagem1Change}>
                 <option value="" disabled hidden>Número da sala</option>
                 <option value="210" label="210" />
                 <option value="211" label="211" />
@@ -41,13 +43,26 @@ const Rooms: React.FC = () => {
                 <option value="213" label="213" />
             </select>
 
-            <select value={linguagem2} onChange={handleLinguagem2Change}>
-                <option value="" disabled hidden>Capacidade máxima</option>
-                <option value="minus40"> Menos que 40</option>
-                <option value="between4050">Entre 40 e 50</option>
-                <option value="between5060">Entre 50 e 60</option>
-                <option value="more60">Mais que 60</option>
-            </select>
+            <div className="select-container">
+
+                <select value={linguagem2} onChange={handleLinguagem2Change}>
+                    <option value="" disabled hidden>Capacidade máxima</option>
+                    <option value="minus40"> Menos que 40</option>
+                    <option value="between4050">Entre 40 e 50</option>
+                    <option value="between5060">Entre 50 e 60</option>
+                    <option value="more60">Mais que 60</option>
+                </select>
+
+                <select value={linguagem4} onChange={handleLinguagem4Change}>
+                    <option value="" disabled hidden>Prédio</option>
+                    <option value="Prédio 1">Prédio 1</option>
+                    <option value="Prédio 2">Prédio 2</option>
+                    <option value="Prédio 3">Prédio 3</option>
+                    <option value="Prédio 4">Prédio 4</option>
+                </select>
+
+
+            </div>
 
             <select value={linguagem3} onChange={handleLinguagem3Change}>
                 <option value="" disabled hidden>Tipo</option>
@@ -57,13 +72,6 @@ const Rooms: React.FC = () => {
             </select>
 
 
-            <select value={linguagem4} onChange={handleLinguagem4Change}>
-                <option value="" disabled hidden>Prédio</option>
-                <option value="Prédio 1">Prédio 1</option>
-                <option value="Prédio 2">Prédio 2</option>
-                <option value="Prédio 3">Prédio 3</option>
-                <option value="Prédio 4">Prédio 4</option>
-            </select>
 
             <Box position='fixed' right={12} bottom={12}>
                 <Fab
@@ -74,7 +82,6 @@ const Rooms: React.FC = () => {
                 </Fab>
             </Box>
         </div>
-
     );
 };
 
