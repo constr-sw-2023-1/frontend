@@ -1,8 +1,21 @@
-import axios from "axios"
-import config from "./config"
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
+import env from "./env"
+import ICourse from "@shared/ICourse"
 
-function loadCourses(accessToken: string) {
-    // const response = axios.get(`${config}`, accessToken)
+const { APPLICATION_IP, PORT, PROTOCOL } = env
+
+const uri = `${PROTOCOL}://${APPLICATION_IP}:${PORT}`
+
+async function loadCourses(accessToken: string) {
+    const config: AxiosRequestConfig = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    }
+    const response = await axios.get<ICourse[]>(`${uri}/`, config)
+
+    return response as AxiosResponse<ICourse[]>
 }
 
-export { }
+export { loadCourses }

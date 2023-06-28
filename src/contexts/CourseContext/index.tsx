@@ -1,7 +1,14 @@
-import { Dispatch, ReactNode, SetStateAction, createContext, useEffect, useState } from "react";
+import {
+    ReactNode,
+    createContext,
+    useEffect,
+    useState
+} from "react";
 import coursesListPage from "@assets/mocks/coursesListPage";
 import ToastComponent from "@components/ToastComponent";
 import ICourse from "@shared/ICourse";
+import * as api from '@services/api'
+import { AxiosResponse } from "axios";
 
 interface CourseContextProps {
     loading: boolean
@@ -27,6 +34,7 @@ function CourseProvider({ children }: CourseProviderProps) {
             setLoading(true)
 
             try {
+                // const response = await api.loadCourses(accessToken)
                 const response = await new Promise<ICourse[] | void>((resolve, reject) => {
                     setTimeout(() => {
                         resolve()
@@ -37,12 +45,20 @@ function CourseProvider({ children }: CourseProviderProps) {
                 setLoading(false)
 
                 return response as ICourse[]
+                // return response as AxiosResponse<ICourse[]>
             } catch (error: any) {
                 if (!error?.response) {
-                    <ToastComponent message={"Erro ao carregar disciplinas"} />
-                    console.error('Internal Server Error')
+                    <ToastComponent
+                        message={"Erro ao carregar disciplinas"}
+                        severity={'error'}
+                        color={'error'}
+                    />
                 } else {
-                    <ToastComponent message={error?.status} />
+                    <ToastComponent
+                        message={error?.status}
+                        severity={'error'}
+                        color={'error'}
+                    />
                 }
 
                 setLoading(false)

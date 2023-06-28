@@ -1,4 +1,4 @@
-import { Box, List, Skeleton } from "@mui/material";
+import { Box, Skeleton, Stack } from "@mui/material";
 import useCourse from "@hooks/useCourse";
 import HeaderCoursesComponent from "../components/HeaderCoursesComponent";
 import CardCourseComponent from "../components/CardCourseComponent";
@@ -16,41 +16,31 @@ export default function CoursesListPage() {
         animation={"wave"}
         width={'100%'}
         height={'80px'}
-        sx={{
-          mb: '12px'
-        }}
       />
     ))
   }
 
-  function handleLoading() {
-    return loading ?
-      <Box sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        width: '70%',
-        height: '70%',
-      }}>
-        {Skeletons()}
-      </Box>
-      :
-      <List sx={{
-        width: '70%',
-        height: '70%',
-        overflowY: 'scroll',
-        overflowX: 'hidden',
-        padding: '3px'
-      }}>
-        {courses?.map(({ id, name, codCred, numCredits }) => (
+  function handleRender() {
+    return <Stack sx={{
+      width: '70%',
+      height: '70%',
+      overflowY: 'scroll',
+      overflowX: 'hidden',
+      padding: '3px',
+    }}
+      spacing={'12px'}
+    >
+      {loading ? Skeletons()
+        : courses?.map(({ id, name, codCred, numCredits }) => (
           <CardCourseComponent
             key={id}
             name={name}
             codCred={codCred}
             numCredits={numCredits}
-            marginBottom={'12px'}
           />
-        ))}
-      </List>
+        ))
+      }
+    </Stack>
   }
 
   return (
@@ -61,7 +51,7 @@ export default function CoursesListPage() {
       px: '30px',
     }}>
       <HeaderCoursesComponent title={"Disciplinas"} />
-      {handleLoading()}
+      {handleRender()}
       <Box sx={{
         width: '100%',
         height: '10%',

@@ -62,10 +62,14 @@ export default function CardCourseComponent({
                 <EditIcon sx={{
                     mr: '1rem',
                     color: text.primary
-                }} />
+                }}
+                    onClick={() => { }}
+                />
                 <DeleteIcon sx={{
                     color: error.main
-                }} />
+                }}
+                    onClick={() => { }}
+                />
             </Box>
         </Box>
     )

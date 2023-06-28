@@ -1,4 +1,4 @@
-import { Alert, AlertColor, AlertProps } from "@mui/material";
+import { Alert, AlertProps } from "@mui/material";
 
 interface ToastProps extends AlertProps {
     message: string
@@ -9,7 +9,7 @@ export default function ToastComponent({
     ...props
 }: ToastProps) {
     return (
-        <Alert {...props}>
+        <Alert variant={'filled'} {...props}>
             {message}
         </Alert>
     )

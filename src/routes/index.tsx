@@ -7,7 +7,7 @@ export default function RoutesComponent() {
   return (
     <Routes>
       <Route path={"app"} element={<PrivateRoute />}>
-          <Route path={"courses/list"} element={<CoursesListPage />} />
+        <Route path={"courses/list"} element={<CoursesListPage />} />
         {/* <Route path={""} element={<PrivatePages />}>
         </Route> */}
       </Route>
