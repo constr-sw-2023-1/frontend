@@ -9,7 +9,8 @@ import api from "@utils/api";
 import { Subject } from "./model/subject";
 
 const formatTime = (date: Date) =>
-  `${date.getDate()}/${date.getMonth() + 1
+  `${date.getDate()}/${
+    date.getMonth() + 1
   }/${date.getFullYear()}  ${date.getHours()}:${date.getMinutes()}`;
 
 export default function Lessons() {
@@ -17,7 +18,7 @@ export default function Lessons() {
 
   const fetchSubjects = useCallback(async () => {
     const allSubjects = await api({
-      baseURL: "//localhost:8000",
+      baseURL: "http://ec2-18-220-210-173.us-east-2.compute.amazonaws.com:8000",
     }).get<Subject[]>("/lessons/subject");
 
     setSubjects(allSubjects.data);
