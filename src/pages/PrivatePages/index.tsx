@@ -1,6 +1,7 @@
 import Header from "@components/Header";
 import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
+import ClassesListPage from "@pages/RoomsListPage";
 
 export default function PrivatePages() {
   return (
@@ -10,7 +11,6 @@ export default function PrivatePages() {
         height: '100vh',
       }}>
         <Header />
-        
         <Outlet />
       </Box>
   );
