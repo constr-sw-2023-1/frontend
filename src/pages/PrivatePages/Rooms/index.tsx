@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Box } from '@mui/material';
 
 import './Rooms.scss';
 
@@ -27,8 +28,9 @@ const Rooms: React.FC = () => {
     return (
         <div className="rooms-container">
 
-            <h1>Criar/Editar sala</h1>
-
+            <Box textAlign={'left'} width={'20%'}>
+                <h1>Criar/Editar sala</h1>
+            </Box>
 
             <select value={linguagem1} onChange={handleLinguagem1Change}>
                 <option value="" disabled hidden>Número da sala</option>
