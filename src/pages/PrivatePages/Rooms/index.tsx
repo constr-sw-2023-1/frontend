@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, Fab } from '@mui/material';
 
 import './Rooms.scss';
+import { AddRounded } from '@mui/icons-material';
 
 const Rooms: React.FC = () => {
     const [linguagem1, setLinguagem1] = useState('');
@@ -63,7 +64,17 @@ const Rooms: React.FC = () => {
                 <option value="Prédio 3">Prédio 3</option>
                 <option value="Prédio 4">Prédio 4</option>
             </select>
+
+            <Box position='fixed' right={12} bottom={12}>
+                <Fab
+                    color='primary'
+                    aria-label='add'
+                >
+                    <AddRounded />
+                </Fab>
+            </Box>
         </div>
+
     );
 };
 
