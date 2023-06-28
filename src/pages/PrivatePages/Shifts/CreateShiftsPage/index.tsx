@@ -131,7 +131,7 @@ const CreateShiftsPage: React.FC<ShiftsProps> = ({ shiftId, name }) => {
                 <Alert
                     onClose={handleSuccessSnackbarClose}
                     severity="success"
-                    sx={{ width: '100%', backgroundColor: 'green' }}
+                    sx={{ width: '100%', backgroundColor: '#33B864', color: 'white' }}
                 >
                     Período criado/atualizado com sucesso
                 </Alert>
@@ -144,7 +144,7 @@ const CreateShiftsPage: React.FC<ShiftsProps> = ({ shiftId, name }) => {
                 <Alert
                     onClose={handleErrorSnackbarClose}
                     severity="error"
-                    sx={{ width: '100%', backgroundColor: 'red' }}
+                    sx={{ width: '100%', backgroundColor: '#B90E0A', color: 'white' }}
                 >
                     Erro ao criar/atualizar período
                 </Alert>
