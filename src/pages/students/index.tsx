@@ -8,6 +8,7 @@ import ButtonYellow from "./components/ButtonYellow";
 import "./students.css";
 import { Student } from "./model/student";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 const Students = () => {
 
@@ -20,6 +21,7 @@ const Students = () => {
 
     };
     const [students, setStudents] = useState<Student[]>([]);
+    const [isLoading, setIsLoading] = useState(false)
 
     const navigate = useNavigate();
 
@@ -29,21 +31,20 @@ const Students = () => {
 
     //Alterar para a chamada da API
     useEffect(() => {
-        setStudents([
-            {
-                uuid: "1",
-                nome: "Aluno 1",
-                matricula: "123456789",
-                curso: "Ciência da Computação",
-            },
-            {
-                uuid: "2",
-                nome: "Aluno 2",
-                matricula: "987654321",
-                curso: "Engenharia de Software",
-            }
-        ]);
+        setIsLoading(true)
+
+        const fetchData = async () => {
+            const res = await axios.get("http://localhost:8080/students")
+            setStudents(res.data.students.students)
+          }
+
+          fetchData()
+
     }, []);
+
+    useEffect(() => {
+        setIsLoading(false)
+    }, [students])
 
     return (
         <Container disableGutters className="studentsContainer">
@@ -81,9 +82,11 @@ const Students = () => {
                         Lista de Alunos
                     </Typography>
                 </Box>
-                {students.map((student) => (
+                {isLoading ? "Carregando..." : (
+                    <>
+                    {students.map((student) => (
                     <Box
-                        key={student.uuid}
+                        key={student.student_id}
                         sx={{
                             backgroundColor: "#ffffff",
                             borderRadius: "0.2rem",
@@ -95,9 +98,9 @@ const Students = () => {
                         }}
                     >
                         <Box>
-                            <Typography sx={{ fontSize: "1.5rem" }}>{student.nome}</Typography>
+                            <Typography sx={{ fontSize: "1.5rem" }}>{student.name}</Typography>
                             <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
-                                Matricula: {student.matricula}
+                                Matricula: {student.registration}
                             </Typography>
                             <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
                                 Curso: {student.curso}
@@ -113,6 +116,8 @@ const Students = () => {
                         </Box>
                     </Box>
                 ))}
+                    </>
+                )}
             </Box>
 
             <div className="buttonContainer">
