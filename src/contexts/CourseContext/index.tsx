@@ -9,7 +9,6 @@ import coursesListPage from "@assets/mocks/coursesListPage";
 import ToastComponent from "@components/ToastComponent";
 import ICourse from "@shared/ICourse";
 import { IAddCourse } from "@shared/IAddCourse";
-import * as api from '@services/api'
 
 interface CourseContextProps {
     loading: boolean
