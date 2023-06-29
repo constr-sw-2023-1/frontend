@@ -3,14 +3,14 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 
-interface ButtonYellowProps {
+interface ButtonBlueProps {
   text: string;
   icon?: React.ReactNode;
   styles?: React.CSSProperties;
   onClick?: () => void; // Adicionado o onClick
 }
 
-const ButtonYellow: React.FC<ButtonYellowProps> = ({ text, icon, styles, ...props }) => {
+const ButtonBlue: React.FC<ButtonBlueProps> = ({ text, icon, styles, ...props }) => {
   const renderButton = () => {
     if (icon) {
       return (
@@ -18,12 +18,12 @@ const ButtonYellow: React.FC<ButtonYellowProps> = ({ text, icon, styles, ...prop
           sx={{
             display: 'flex',
             alignItems: 'center',
-            bgcolor: "#F18F01",
-            color: "black",
+            bgcolor: "#005288",
+            color: "white",
             borderRadius: "28px",
             "&:hover": {
-              bgcolor: "#FFA500",
-              color: "black",
+              bgcolor: "#0067ab",
+              color: "white",
             },
             ...styles
           }}
@@ -41,15 +41,15 @@ const ButtonYellow: React.FC<ButtonYellowProps> = ({ text, icon, styles, ...prop
           sx={{
             display: 'flex',
             alignItems: 'center',
-            bgcolor: "#F18F01",
-            color: "black",
+            bgcolor: "#005288",
+            color: "white",
             borderRadius: "28px",
             fontSize: "14px",
             fontWeight: 600,
             padding: "0px",
             "&:hover": {
-              bgcolor: "#FFA500",
-              color: "black",
+              bgcolor: "#0067ab",
+              color: "white",
             },
             ...styles
           }}
@@ -65,4 +65,4 @@ const ButtonYellow: React.FC<ButtonYellowProps> = ({ text, icon, styles, ...prop
   return renderButton();
 };
 
-export default ButtonYellow;
+export default ButtonBlue;
