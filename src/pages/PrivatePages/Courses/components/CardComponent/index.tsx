@@ -2,18 +2,18 @@ import { Box, BoxProps, Typography, useTheme } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export interface CardCourseProps extends BoxProps {
+export interface CardProps extends BoxProps {
     name: string
-    codCred: string
-    numCredits: number
+    firstInfo: number | string
+    secondInfo: number | string
 }
 
-export default function CardCourseComponent({
+export default function CardComponent({
     name,
-    codCred,
-    numCredits,
+    firstInfo,
+    secondInfo,
     ...props
-}: CardCourseProps) {
+}: CardProps) {
     const { palette: { text, error } } = useTheme()
 
     return (
@@ -46,12 +46,12 @@ export default function CardCourseComponent({
                     color: text.secondary,
                     fontWeight: 500,
                     fontSize: '0.875rem'
-                }}>{'Cod Cred: ' + codCred}</Typography>
+                }}>{firstInfo}</Typography>
                 <Typography sx={{
                     color: text.secondary,
                     fontWeight: 500,
                     fontSize: '0.875rem'
-                }}>{'Créditos: ' + numCredits}</Typography>
+                }}>{secondInfo}</Typography>
             </Box>
             <Box sx={{
                 flex: 1,

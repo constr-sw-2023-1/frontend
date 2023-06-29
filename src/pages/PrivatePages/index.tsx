@@ -30,8 +30,8 @@ export default function PrivatePages() {
         <Box sx={{
           width: '100%',
           height: '90%',
-          py: '40px',
-          px: '30px',
+          pt: '1rem',
+          px: '0.75rem',
         }}>
           <Outlet />
         </Box>

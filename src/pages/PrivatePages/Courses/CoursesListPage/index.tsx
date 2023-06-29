@@ -3,15 +3,16 @@ import { Box, Skeleton, Stack } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import useCourse from "@hooks/useCourse";
 import HeaderCoursesComponent from "../components/HeaderCoursesComponent";
-import CardCourseComponent from "../components/CardCourseComponent";
+import CardComponent from "../components/CardComponent";
 import ButtonCoursesComponent from "../components/ButtonCoursesComponent";
+import ICourse from "@shared/ICourse";
 
 export default function CoursesListPage() {
   const { loading, courses } = useCourse()
   const navigate = useNavigate()
 
   function Skeletons() {
-    const skeletons = [1, 2, 3, 4, 5, 6]
+    const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     return skeletons.map(({ }, index) => (
       <Skeleton
         key={index}
@@ -23,6 +24,10 @@ export default function CoursesListPage() {
     ))
   }
 
+  function handleNavigateToCourseDetails(course: ICourse) {
+    navigate(`details/:${course.id}`, { state: course })
+  }
+
   function handleRender() {
     return <Stack sx={{
       width: '70%',
@@ -31,15 +36,16 @@ export default function CoursesListPage() {
       overflowX: 'hidden',
       padding: '3px',
     }}
-      spacing={'12px'}
+      spacing={'0.75rem'}
     >
       {loading ? Skeletons()
-        : courses?.map(({ id, name, codCred, numCredits }) => (
-          <CardCourseComponent
-            key={id}
-            name={name}
-            codCred={codCred}
-            numCredits={numCredits}
+        : courses?.map((course) => (
+          <CardComponent
+            key={course.id}
+            name={course.name}
+            firstInfo={'Cód Cred: ' + course.codCred}
+            secondInfo={'Créditos: ' + course.numCredits}
+            onClick={() => handleNavigateToCourseDetails(course)}
           />
         ))
       }
@@ -55,17 +61,18 @@ export default function CoursesListPage() {
       width: '100%',
       height: '100%',
     }}>
-      <HeaderCoursesComponent title={"Disciplinas"} />
+      <HeaderCoursesComponent title={"Disciplinas"} mainScreen />
       {handleRender()}
       <Box sx={{
         width: '100%',
         height: '10%',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        px: '2rem',
       }}>
         <ButtonCoursesComponent
-          content={'Criar'}
+          content={'Adicionar disciplina'}
           icon={<Add sx={{
             color: 'black',
             mr: '0.5rem'

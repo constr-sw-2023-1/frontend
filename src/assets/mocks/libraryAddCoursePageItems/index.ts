@@ -22,6 +22,28 @@ const libraryAddCoursePageItems: IBook[] = [
         category: 'ROMANCE',
         publisher: 'Moderna',
         isbn: '73264778324683274638426328362328'
+    },
+    {
+        id: '3',
+        name: 'Livro 3',
+        author: 'Mário Quintana',
+        year: 1998,
+        numPages: 304,
+        language: 'PORTUGUESE',
+        category: 'ROMANCE',
+        publisher: 'Moderna',
+        isbn: '73264778324683274638426328362328'
+    },
+    {
+        id: '4',
+        name: 'Livro 4',
+        author: 'Mário Quintana',
+        year: 1998,
+        numPages: 304,
+        language: 'PORTUGUESE',
+        category: 'ROMANCE',
+        publisher: 'Moderna',
+        isbn: '73264778324683274638426328362328'
     }
 ]
 

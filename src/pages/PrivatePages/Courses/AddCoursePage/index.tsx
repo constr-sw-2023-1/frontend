@@ -1,5 +1,5 @@
 import { Controller, useForm } from 'react-hook-form'
-import { Box, CircularProgress, Stack } from "@mui/material";
+import { Autocomplete, Box, CircularProgress, Stack } from "@mui/material";
 import libraryAddCoursePageItems from '@assets/mocks/libraryAddCoursePageItems';
 import { zodResolver } from '@hookform/resolvers/zod'
 import Input from "@components/Input";
@@ -10,6 +10,7 @@ import ButtonCoursesComponent from '../components/ButtonCoursesComponent';
 import { Close, Done } from '@mui/icons-material';
 import useCourse from '@hooks/useCourse';
 import { useNavigate } from 'react-router';
+import { IBook } from '@shared/IBook';
 
 export default function AddCoursePage() {
     const { loading, addCourse } = useCourse()
@@ -24,7 +25,7 @@ export default function AddCoursePage() {
         defaultValues: {
             name: '',
             codCred: '',
-            books: '',
+            books: [],
             credits: 0,
             description: '',
         },
@@ -47,7 +48,7 @@ export default function AddCoursePage() {
                 width: '60%',
                 height: '70%',
                 overflow: 'hidden',
-                paddingY: '0.375rem',
+                py: '0.375rem',
                 display: 'flex',
                 alignItems: 'center',
             }} spacing={'0.75rem'}>
@@ -91,13 +92,21 @@ export default function AddCoursePage() {
                                     control={control}
                                     name={'books'}
                                     render={({ field: { onChange, value } }) => (
-                                        <Input
-                                            select
-                                            label={'Bibliografias'}
-                                            onChange={onChange}
-                                            value={value}
-                                            items={libraryAddCoursePageItems as []}
-                                            errorMessage={errors.books?.message}
+                                        <Autocomplete
+                                            multiple
+                                            id={'tags-outlined'}
+                                            sx={{ width: '100%' }}
+                                            options={libraryAddCoursePageItems}
+                                            getOptionLabel={({ name }: IBook) => name}
+                                            renderInput={(params) => (
+                                                <Input
+                                                    {...params}
+                                                    label={'Bibliografia'}
+                                                    onChange={onChange}
+                                                    value={value}
+                                                    errorMessage={errors.books?.message}
+                                                />
+                                            )}
                                         />
                                     )}
                                 />
@@ -136,7 +145,8 @@ export default function AddCoursePage() {
                 height: '10%',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'flex-end'
+                justifyContent: 'flex-end',
+                px: '2rem'
             }} spacing={'1.25rem'}>
                 <ButtonCoursesComponent
                     content={'Salvar'}
