@@ -5,11 +5,15 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ButtonYellow from "./components/ButtonYellow";
 import api from "@utils/api";
+import { useNavigate } from 'react-router-dom';
 import { Type } from "./model/type";
 import "./Lessons.css";
+import axios from 'axios';
+
 
 export default function Types(): JSX.Element {
   const [types, setTypes] = useState<Type[]>([]);
+  const navigate = useNavigate();
 
   const fetchTypes = useCallback(async () => {
     const allTypes = await api({
@@ -23,14 +27,22 @@ export default function Types(): JSX.Element {
     fetchTypes();
   }, [fetchTypes]);
 
-  const handleEdit = () => {
-    // Lógica para manipular o clique no botão de edição
-    console.log("Botão de edição clicado");
+  const handleNavigateToCreateType = () => {
+    navigate('/subjects/types/create');
   };
 
-  const handleDelete = () => {
-    // Lógica para manipular o clique no botão de exclusão
-    console.log("Botão de exclusão clicado");
+  const handleEdit = (typeId: string) => {
+    navigate(`/subjects/types/edit/${typeId}`);
+  };
+
+  const handleDelete = async (typeId: string) => {
+    try {
+      await axios.delete(`http://localhost:8000/lessons/subject/type/${typeId}`);
+      // Atualize o estado dos tipos para refletir a exclusão
+      setTypes((prevTypes) => prevTypes.filter((type) => type.uuid !== typeId));
+    } catch (error) {
+      console.log('Erro ao excluir tipo:', error);
+    }
   };
 
   return (
@@ -64,7 +76,7 @@ export default function Types(): JSX.Element {
           .filter((type) => type.active) // Filtra apenas os tipos com active = true
           .map((type) => (
             <Box
-              key={type.name}
+              key={type.uuid} // Alterado para usar o uuid como chave
               sx={{
                 width: "70%",
                 backgroundColor: "#FFFFFF",
@@ -80,10 +92,10 @@ export default function Types(): JSX.Element {
                 <Typography sx={{ fontSize: "1.5rem" }}>{type.name}</Typography>
               </Box>
               <Box>
-                <IconButton onClick={handleEdit}>
+                <IconButton onClick={() => handleEdit(type.uuid)}> {/* Passa o uuid para a função de handleEdit */}
                   <EditIcon />
                 </IconButton>
-                <IconButton onClick={handleDelete} sx={{ color: "red" }}>
+                <IconButton onClick={() => handleDelete(type.uuid)} sx={{ color: 'red' }}>
                   <DeleteIcon />
                 </IconButton>
               </Box>
@@ -91,7 +103,7 @@ export default function Types(): JSX.Element {
           ))}
       </Box>
       <div className="buttonContainer">
-        <ButtonYellow text="Criar Tipo" icon={<Add />} />
+        <ButtonYellow text="Criar" icon={<Add />} onClick={handleNavigateToCreateType} />
       </div>
     </Container>
   );

@@ -1,18 +1,33 @@
 import { Box, Container, Typography, Snackbar } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ButtonYellow from "./components/ButtonYellow";
-import "./Lessons.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from "axios";
 
-export default function CreateLesson(): JSX.Element {
+export default function EditLesson(): JSX.Element {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [classroom, setClassroom] = useState("");
-  const navigate = useNavigate();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+
+  useEffect(() => {
+    const fetchLesson = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/lesson/${id}`);
+        const lessonData = response.data;
+        setSelectedDate(new Date(lessonData.datetime));
+        setClassroom(lessonData.classroom);
+      } catch (error) {
+        console.log("Erro ao buscar aula:", error);
+      }
+    };
+
+    fetchLesson();
+  }, [id]);
 
   const handleNavigateToSubjects = () => {
     navigate('/subjects');
@@ -38,15 +53,15 @@ export default function CreateLesson(): JSX.Element {
         classroom: classroom
       };
 
-      await axios.post("http://localhost:8000/lesson/", lessonData);
+      await axios.put(`http://localhost:8000/lesson/${id}`, lessonData);
 
-      setSnackbarMessage("Aula salva com sucesso.");
+      setSnackbarMessage("Aula atualizada com sucesso.");
       setSnackbarOpen(true);
 
-      //handleNavigateToLesson(); // Redirecionar após o salvamento
+      //handleNavigateToLesson(); // Redirecionar após a atualização
     } catch (error) {
-      console.log("Erro ao salvar aula:", error);
-      setSnackbarMessage("Erro ao salvar a aula. Por favor, tente novamente.");
+      console.log("Erro ao atualizar aula:", error);
+      setSnackbarMessage("Erro ao atualizar a aula. Por favor, tente novamente.");
       setSnackbarOpen(true);
     }
   };
@@ -60,7 +75,7 @@ export default function CreateLesson(): JSX.Element {
       <Box>
         <Box>
           <Typography variant="h4" fontWeight={500}>
-            Criar Aula
+            Editar Aula
           </Typography>
         </Box>
         <Box sx={{ marginTop: "2rem" }}>

@@ -9,11 +9,12 @@ import api from "@utils/api";
 import { Subject } from "./model/subject";
 import "./Lessons.css";
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 const formatTime = (date: Date) =>
   `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
 
-export default function Lessons(): JSX.Element {
+export default function Subjects(): JSX.Element {
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const navigate = useNavigate(); // Mova esta linha para dentro da função
 
@@ -29,24 +30,31 @@ export default function Lessons(): JSX.Element {
     fetchSubjects();
   }, [fetchSubjects]);
 
-  const handleEdit = () => {
-    // Lógica para manipular o clique no botão de edição
-    console.log("Botão de edição clicado");
-  };
-
-  const handleDelete = () => {
-    // Lógica para manipular o clique no botão de exclusão
-    console.log("Botão de exclusão clicado");
+  const handleDelete = async (subjectId: string) => {
+    try {
+      await axios.delete(`http://localhost:8000/lessons/subject/${subjectId}`);
+      // Atualize o estado dos subjects para refletir a exclusão
+      setSubjects((prevSubjects) => prevSubjects.filter((subject) => subject.uuid !== subjectId));
+    } catch (error) {
+      console.log('Erro ao excluir subject:', error);
+    }
   };
 
   const handleNavigateToTypes = () => {
-    navigate('/lessons/types');
+    navigate('/subjects/types');
   };
 
-  const handleNavigateToCreateLesson = () => {
-    navigate('/lessons/create');
+  const handleNavigateToLesson = () => {
+    navigate('/subjects/lessons');
   };
 
+  const handleNavigateToCreateSubject = () => {
+    navigate('/subjects/create');
+  };
+
+  const handleEdit = (subjectId: string) => {
+    navigate(`/subjects/edit/${subjectId}`);
+  };
 
   return (
     <Container disableGutters className="lessonsContainer">
@@ -112,12 +120,15 @@ export default function Lessons(): JSX.Element {
                 <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
                   Sala de aula: {lesson.lesson.classroom}
                 </Typography>
+                <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
+                  Tipo: {lesson.type.name}
+                </Typography>
               </Box>
               <Box>
-                <IconButton onClick={handleEdit}>
+                <IconButton onClick={() => handleEdit(lesson.uuid)}>
                   <EditIcon />
                 </IconButton>
-                <IconButton onClick={handleDelete} sx={{ color: "red" }}>
+                <IconButton onClick={() => handleDelete(lesson.uuid)} sx={{ color: 'red' }}>
                   <DeleteIcon />
                 </IconButton>
               </Box>
@@ -125,9 +136,9 @@ export default function Lessons(): JSX.Element {
           ))}
       </Box>
       <div className="buttonContainer">
-        <ButtonYellow text="Todos os tipos" styles={{}} onClick={handleNavigateToTypes} />
-        <ButtonYellow text="Criar Tipos" icon={<Add />} />
-        <ButtonYellow text="Criar" icon={<Add />} onClick={handleNavigateToCreateLesson} />
+        <ButtonYellow text="Todos os Tipos" styles={{}} onClick={handleNavigateToTypes} />
+        <ButtonYellow text="Todos as Aulas" styles={{}} onClick={handleNavigateToLesson} />
+        <ButtonYellow text="Criar" icon={<Add />} onClick={handleNavigateToCreateSubject} />
       </div>
     </Container>
   );
