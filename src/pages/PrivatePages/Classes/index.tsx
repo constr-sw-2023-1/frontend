@@ -4,9 +4,12 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DomainIcon from '@mui/icons-material/Domain';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from 'react-router-dom';
 
 const Classes = () => {
   const [classes, setClasses] = useState<classeInterface[]>([]);
+
+  const navigate = useNavigate();
 
   interface classeInterface {
     id: string,
@@ -29,10 +32,11 @@ const Classes = () => {
   }, [])
 
   const createClass = () => {
+    navigate(`/Turmas/0`);
   };
 
-  const editClass = (id:string, currentValue:classeInterface) => {
-    //todo: go to edit page
+  const editClass = (id:string) => {
+    navigate(`/Turmas/${id}`);
   };
 
   const deleteClass = async (id:string) => {
@@ -56,7 +60,7 @@ const Classes = () => {
         </Box>
         <Box >
           <Button onClick={() => {
-            editClass(classe.id, classe);
+            editClass(classe.id);
           }}>
             <EditIcon style={{ color: 'black' }} />
           </Button>
