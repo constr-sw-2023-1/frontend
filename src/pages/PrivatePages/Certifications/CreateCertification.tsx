@@ -4,13 +4,10 @@ import DomainIcon from "@mui/icons-material/Domain";
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import {useNavigate, useParams} from "react-router-dom";
-import api from "@utils/api";
-import {ICertification} from "@shared/ICertification";
 import {create, update, findById} from '@services/CertificationsService';
 
 
 const CreateCertification = () => {
-  const [certificationId, setCertificationId] = useState<string>();
   const [name, setName] = useState("");
   const [level, setLevel] = useState("");
   const [institution, setInstitution] = useState("");
@@ -22,7 +19,6 @@ const CreateCertification = () => {
 		const init = async() => {
 			if (id) {
 				const certification = await findById(id);
-				setCertificationId(certification.data.id);
 				setName(certification.data.name);
 				setLevel(certification.data.level);
 				setInstitution(certification.data.institution);
