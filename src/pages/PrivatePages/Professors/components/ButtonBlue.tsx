@@ -29,7 +29,7 @@ const ButtonBlue: React.FC<ButtonBlueProps> = ({ text, icon, styles, ...props })
           }}
           {...props}
         >
-          <Typography sx={{ fontSize: "inherit", display: 'flex', alignItems: 'center' }}>
+          <Typography sx={{ fontSize: "inherit", display: 'flex', alignItems: 'center', gap: '10px' }}>
             {icon}
             {text}
           </Typography>

@@ -7,6 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import {useNavigate} from "react-router-dom";
 import {ICertification} from "@shared/ICertification";
 import {findAll, deleteById} from '@services/CertificationsService';
+import ButtonBlue from "../Professors/components/ButtonBlue";
 
 const Certifications = () => {
   const [certifications, setCertifications] = useState<ICertification[]>([]);
@@ -36,7 +37,7 @@ const Certifications = () => {
           <Typography typography="body">Instituição: {certification.institution}</Typography>
         </Box>
         <Box >
-          <Button onClick={() => { navigate(`/certificados/${certification.id}`) }}>
+          <Button onClick={() => { navigate(`/professors/certificates/${certification.id}`) }}>
             <EditIcon style={{ color: 'black' }} />
           </Button>
           <Button onClick={() => { deleteCertification(certification.id) }}>
@@ -52,7 +53,7 @@ const Certifications = () => {
       <Box paddingX={"20%"} display={'flex'} alignContent={'stretch'} flexDirection={'column'}>
         <Box display={'flex'} flexDirection={'row'} alignItems={'center'} mb={5}>
           <DomainIcon sx={{
-            color: "#F18F01",
+            color: "#005288",
             width: 36,
             height: 36
           }} />
@@ -61,19 +62,16 @@ const Certifications = () => {
 
         {certifications.map(certification => listItem(certification))}
 
-        <Button onClick={() => navigate("/certificados/novo")} sx={{
+        <ButtonBlue styles={{
           position: 'fixed',
           right: '20px',
           bottom: '20px',
-          color: "black",
-          backgroundColor: '#F18F01',
+          color: "white",
+          backgroundColor: '#005288',
           borderRadius: 8,
           padding: 2,
           alignItems: 'center'
-        }}>
-          <AddIcon />
-          <Typography ml={2} typography={"body"}>Criar</Typography>
-        </Button>
+        }} icon={<AddIcon/>} text="Criar" onClick={() => navigate("/professors/certificates/create")}/>
       </Box>
     </Box>
   );
