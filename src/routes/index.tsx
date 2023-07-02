@@ -9,6 +9,7 @@ import CreateProfessor from "@pages/Professors/CreateProfessor";
 import PrivatePages from "@pages/PrivatePages";
 import CreateShiftsPage from "@pages/PrivatePages/Shifts/CreateShiftsPage";
 import Shifts from "@pages/PrivatePages/Shifts/ShiftsPage";
+import Classes from "@pages/PrivatePages/Classes"
 import Login from "@pages/Login";
 
 export default function RoutesComponent() {
