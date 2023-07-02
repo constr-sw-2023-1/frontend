@@ -65,6 +65,8 @@ const LoginPage = (): JSX.Element => {
                     variant="contained"
                     onClick={doLogin}
                     sx={{
+                        backgroundColor:'#005288',
+                        color: '#fff',
                         height: '50px',
                         lineHeight: '50px',
                     }}
