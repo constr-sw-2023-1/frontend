@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import PrivatePages from "@pages/PrivatePages";
 import CreateShiftsPage from "@pages/PrivatePages/Shifts/CreateShiftsPage";
+import Shifts from "@pages/PrivatePages/Shifts/ShiftsPage";
 //import Classes from "@pages/PrivatePages/Classes";
 
 export default function RoutesComponent() {
@@ -13,7 +14,9 @@ export default function RoutesComponent() {
           {/* <Route path={""} element={<Dashboard />} /> */}
         </Route>
         {/*         <Route path="/Turmas" element={<Classes/>}/>
- */}        <Route path="/Periodos" element={<CreateShiftsPage name={''} />} />
+ */}       <Route path="/Periodos" element={<Shifts />} />
+        <Route path="/create-shift" element={<CreateShiftsPage name={""} />} />
+        <Route path="/edit-shift/:id" element={<CreateShiftsPage name={""} />} />
       </Route>
     </Routes>
   );

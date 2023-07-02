@@ -4,16 +4,19 @@ import { Alert, Box, Button, IconButton, Snackbar, TextField, Typography } from 
 import CloseIcon from '@mui/icons-material/Close';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 
 type ShiftsProps = {
-    shiftId?: string;
+    id?: string;
     name: string;
 };
 
-const CreateShiftsPage: React.FC<ShiftsProps> = ({ shiftId, name }) => {
+const CreateShiftsPage: React.FC<ShiftsProps> = () => {
+    const { id, name } = useParams();
     const [shiftName, setShiftName] = useState(name);
     const [showSuccessSnackbar, setShowSuccessSnackbar] = useState(false);
     const [showErrorSnackbar, setShowErrorSnackbar] = useState(false);
+    const navigate = useNavigate();
 
     const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
         setShiftName(event.target.value);
@@ -37,13 +40,16 @@ const CreateShiftsPage: React.FC<ShiftsProps> = ({ shiftId, name }) => {
     };
 
     const handleClick = () => {
-        if (shiftId) {
+        if (id) {
             axios
-                .put(`http://localhost:3000/api/shifts/${shiftId}`, {
+                .put(`http://localhost:3000/api/shifts/${id}`, {
                     period: shiftName,
                 })
                 .then((_) => {
                     setShowSuccessSnackbar(true);
+                    setTimeout(() => {
+                        navigate(-1);
+                    }, 2000);
                 })
                 .catch((_) => {
                     setShowErrorSnackbar(true);
@@ -56,6 +62,9 @@ const CreateShiftsPage: React.FC<ShiftsProps> = ({ shiftId, name }) => {
                 })
                 .then((_) => {
                     setShowSuccessSnackbar(true);
+                    setTimeout(() => {
+                        navigate(-1);
+                    }, 2000);
                 })
                 .catch((_) => {
                     setShowErrorSnackbar(true);
@@ -90,7 +99,7 @@ const CreateShiftsPage: React.FC<ShiftsProps> = ({ shiftId, name }) => {
                             fontWeight: 700,
                         }}
                     >
-                        {name ? 'Editar período' : 'Criar período'}
+                        {id ? 'Editar período' : 'Criar período'}
                     </Typography>
                     <TextField
                         id="shiftname"
