@@ -16,12 +16,13 @@ import CreateEdit from "@pages/PrivatePages/Classes/CreateEdit/CreateEdit"
 import Login from "@pages/Login";
 import Students from "@pages/students";
 import CreateStudent from "@pages/students/CreateStudent";
+import EditStudent from "@pages/students/EditStudent";
 
 
 export default function RoutesComponent() {
   return (
     <Routes>
-      <Route path={""} element={<PrivateRoute />}>
+      <Route path={""} element={<PrivateRoute />}>  
         <Route path={""} element={<PrivatePages />}>
           <Route path={""} element={<Dashboard />} />
         </Route>
@@ -42,6 +43,7 @@ export default function RoutesComponent() {
         <Route path="/edit-shift/:id" element={<CreateShiftsPage name={""} />} />
         <Route path={"/students"} element={<Students />} />
         <Route path={"students/create"} element={<CreateStudent />} />
+        <Route path={"students/edit/:id"} element={<EditStudent />} />
       </Route>
     </Routes>
   );
