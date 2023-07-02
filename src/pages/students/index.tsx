@@ -9,13 +9,12 @@ import "./students.css";
 import { Student } from "./model/student";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import { fetchStudents } from "./studentsRequests";
 
 const Students = () => {
 
     const handleDelete = (student_id: number | string) => {
         //Fazer a chamada para a API para deletar o aluno
-
-
 
     };
     const [students, setStudents] = useState<Student[]>([]);
@@ -28,14 +27,12 @@ const Students = () => {
     };
 
     useEffect(() => {
-        setIsLoading(true)
+        setIsLoading(true);
 
-        const fetchData = async () => {
-            const res = await axios.get("http://localhost:8080/students")
-            setStudents(res.data.students.students)
-        }
-
-        fetchData()
+        (async () => {
+            let results = await fetchStudents()
+            setStudents(results)
+        })()
 
     }, []);
 
