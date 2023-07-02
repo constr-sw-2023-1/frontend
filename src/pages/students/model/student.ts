@@ -1,6 +1,8 @@
 export interface Student {
-    uuid: string;
-    nome: string;
-    matricula: string;
-    curso: string;
+    student_id: number | string;
+    name: string;
+    registration: number | string;
+    course: string;
+    email?: string;
+    enabled: boolean;
 }

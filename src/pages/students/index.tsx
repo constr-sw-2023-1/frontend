@@ -12,12 +12,10 @@ import axios from 'axios'
 
 const Students = () => {
 
-    const handleDelete = (uuid: string) => {
+    const handleDelete = (student_id: number | string) => {
         //Fazer a chamada para a API para deletar o aluno
 
-        setStudents(prevStudents => {
-            return prevStudents.filter((student) => student.uuid !== uuid)
-        })
+
 
     };
     const [students, setStudents] = useState<Student[]>([]);
@@ -29,16 +27,15 @@ const Students = () => {
         navigate('/students/create');
     };
 
-    //Alterar para a chamada da API
     useEffect(() => {
         setIsLoading(true)
 
         const fetchData = async () => {
             const res = await axios.get("http://localhost:8080/students")
             setStudents(res.data.students.students)
-          }
+        }
 
-          fetchData()
+        fetchData()
 
     }, []);
 
@@ -84,38 +81,38 @@ const Students = () => {
                 </Box>
                 {isLoading ? "Carregando..." : (
                     <>
-                    {students.map((student) => (
-                    <Box
-                        key={student.student_id}
-                        sx={{
-                            backgroundColor: "#ffffff",
-                            borderRadius: "0.2rem",
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            marginBottom: "1rem",
-                            padding: "0.5rem",
-                        }}
-                    >
-                        <Box>
-                            <Typography sx={{ fontSize: "1.5rem" }}>{student.name}</Typography>
-                            <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
-                                Matricula: {student.registration}
-                            </Typography>
-                            <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
-                                Curso: {student.curso}
-                            </Typography>
-                        </Box>
-                        <Box>
-                            <IconButton onClick={() => { }}>
-                                <EditIcon />
-                            </IconButton>
-                            <IconButton onClick={() => handleDelete(student.uuid)} sx={{ color: "red" }}>
-                                <DeleteIcon />
-                            </IconButton>
-                        </Box>
-                    </Box>
-                ))}
+                        {students.map((student) => (
+                            <Box
+                                key={student.student_id}
+                                sx={{
+                                    backgroundColor: "#ffffff",
+                                    borderRadius: "0.2rem",
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    marginBottom: "1rem",
+                                    padding: "0.5rem",
+                                }}
+                            >
+                                <Box>
+                                    <Typography sx={{ fontSize: "1.5rem" }}>{student.name}</Typography>
+                                    <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
+                                        Matricula: {student.registration}
+                                    </Typography>
+                                    <Typography sx={{ color: "#5D707F", fontSize: "1.25rem" }}>
+                                        Curso: {student.course}
+                                    </Typography>
+                                </Box>
+                                <Box>
+                                    <IconButton onClick={() => { }}>
+                                        <EditIcon />
+                                    </IconButton>
+                                    <IconButton onClick={() => handleDelete(student.student_id)} sx={{ color: "red" }}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </Box>
+                            </Box>
+                        ))}
                     </>
                 )}
             </Box>
