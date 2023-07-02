@@ -15,7 +15,7 @@ export default function Resources() {
 
 	const loadResources = useCallback(() => {
 		resourceService.loadResources()
-		.then(setResources)
+		.then((response) => setResources(response.data as Resource[]))
 	}, [])
 
 	useEffect(() => {
@@ -30,7 +30,7 @@ export default function Resources() {
 					<Box sx={{ flexDirection: 'row', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
 						<Box>
 							<Typography variant="body1">{resource.description}</Typography>
-							<Typography variant="body2" sx={{ color: "#6D8A96" }}>{resource.active ? 'Disponível' : 'Indisponível'}</Typography>
+							<Typography variant="body2" sx={{ color: "#6D8A96" }}>Disponível</Typography>
 						</Box>
 						<Box>
 							<IconButton size="large" sx={{ marginRight: '1rem' }}><EditIcon /></IconButton>
@@ -61,7 +61,7 @@ export default function Resources() {
 						{CardList}
 					</Box>
 				</Container>
-				<Button color="secondary" variant="contained" startIcon={<AddIcon />}
+				<Button href="/resource/create" color="secondary" variant="contained" startIcon={<AddIcon />}
 					sx={{
 						borderRadius: '28px',
 						padding: '16px ',
