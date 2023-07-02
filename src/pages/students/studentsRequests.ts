@@ -8,6 +8,8 @@ export const fetchStudents = async () => {
 
 export const createStudent = async (studentData: Student) => {
     const res = await axios.post("http://localhost:8080/students", studentData)
+    return res.data
+
 }
 
 export const deleteStudents = async (studentId: number | string) => {

@@ -4,14 +4,17 @@ import "./students.css";
 import { useNavigate } from 'react-router-dom';
 import ButtonYellow from "./components/ButtonYellow";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import axios from "axios";
+import { createStudent } from "./studentsRequests";
+import { Student } from "./model/student";
 
 export default function CreateStudent(): JSX.Element {
 
     const [name, setName] = useState("");
-    const [matricula, setMatricula] = useState("");
+    const [registration, setRegistration] = useState("");
     const [email, setEmail] = useState("");
-    const [curso, setCurso] = useState("");
+    const [course, setCourse] = useState("");
+    const [message, setMessage] = useState("")
+    const [errors, setErrors] = useState(null)
 
     const navigate = useNavigate();
 
@@ -24,7 +27,18 @@ export default function CreateStudent(): JSX.Element {
     };
 
     const handleCreate = async () => {
-        //Fazer a chamada para a API para criar o aluno
+        let studentData: Student = {
+            name,
+            registration,
+            email,
+            course,
+            enabled: true
+        }
+
+        let res = await createStudent(studentData)
+        setMessage(res.message)
+
+
     };
 
     return (
@@ -51,9 +65,9 @@ export default function CreateStudent(): JSX.Element {
                         <Box sx={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: "50%" }}>
                             <TextField
                                 type="text"
-                                value={matricula}
+                                value={registration}
                                 placeholder="Matrícula"
-                                onChange={(event) => setMatricula(event.target.value)}
+                                onChange={(event) => setRegistration(event.target.value)}
                                 className="studentsInput"
                             />
                         </Box>
@@ -62,9 +76,9 @@ export default function CreateStudent(): JSX.Element {
                         <Box sx={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: "100%" }}>
                             <TextField
                                 type="curso"
-                                value={curso}
+                                value={course}
                                 placeholder="Curso"
-                                onChange={(event) => setCurso(event.target.value)}
+                                onChange={(event) => setCourse(event.target.value)}
                                 className="studentsInput"
                             />
                         </Box>
@@ -89,6 +103,8 @@ export default function CreateStudent(): JSX.Element {
 
                         </Box>
                     </Box>
+                    {message && <p style={{ color: "green" }}>Aluno matriculado com sucesso!</p>}
+                    {errors && <p style={{ color: "red" }}>Erro ao matricular o aluno! Verifique os campos preenchidos!</p>}
                 </Box>
             </Box>
             <div className="buttonContainer">
