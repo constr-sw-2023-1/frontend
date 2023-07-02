@@ -8,6 +8,7 @@ import ButtonYellow from "./components/ButtonYellow";
 import { Student } from "./model/student";
 import { useNavigate } from "react-router-dom";
 import { fetchStudents, deleteStudents } from "./studentsRequests";
+import Header from "@components/Header";
 
 const Students = () => {
   const handleDelete = async (student_id: number | string) => {
@@ -47,6 +48,8 @@ const Students = () => {
 
   return (
     <Container disableGutters className="studentsContainer">
+    <Header />
+    <Box sx={{ marginTop: "50px" }}></Box>
       <Box>
         <Box
           sx={{
@@ -115,12 +118,12 @@ const Students = () => {
                 </Box>
                 <Box>
                   <IconButton
-                    onClick={() => student.student_id && handleNavigateToEdit(student.student_id)}
+                    onClick={() => student.student_id && handleNavigateToEdit(Number(student.student_id))}
                   >
                     <EditIcon />
                   </IconButton>
                   <IconButton
-                    onClick={() => handleDelete(student.student_id)} 
+                    onClick={() => student.student_id && handleDelete(student.student_id)}
                     sx={{ color: "red" }}
                   >
                     <DeleteIcon />

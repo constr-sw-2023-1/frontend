@@ -1,14 +1,32 @@
-import { Box, Container, Typography, TextField, Button } from "@mui/material";
+import { Box, Container, Typography, TextField, Button} from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import "./students.css";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import axios from "axios";
 import ButtonYellow from "./components/ButtonYellow";
+import Header from "@components/Header";
 
 interface RouteParams {
-    id: string;
-    [key: string]: string | undefined;
-  }
+  id: string;
+  [key: string]: string | undefined;
+}
+
+interface Schooling {
+  schooling_id: number;
+  graduation: string;
+  conclusion: string;
+  institution: string;
+}
+
+interface ProfessionalExperience {
+  experience_id: number;
+  position: string;
+  contractor_id: number;
+  start_date: string;
+  end_date: string;
+  ongoing: number;
+}
 
 const EditStudent = () => {
   const navigate = useNavigate();
@@ -18,6 +36,8 @@ const EditStudent = () => {
   const [registration, setRegistration] = useState("");
   const [email, setEmail] = useState("");
   const [course, setCourse] = useState("");
+  const [schooling, setSchooling] = useState<Schooling[]>([]);
+  const [professionalExperience, setProfessionalExperience] = useState<ProfessionalExperience[]>([]);
 
   const handleNavigateToList = () => {
     navigate("/students");
@@ -32,6 +52,8 @@ const EditStudent = () => {
         setRegistration(student.student.registration);
         setEmail(student.student.email);
         setCourse(student.student.course);
+        setSchooling(student.student.schooling);
+        setProfessionalExperience(student.student.professional_experience);
       } catch (error) {
         console.log("Error:", error);
       }
@@ -47,6 +69,8 @@ const EditStudent = () => {
         registration,
         email,
         course,
+        schooling,
+        professional_experience: professionalExperience,
       };
 
       await axios.put(`http://localhost:8080/students/${id}`, updatedStudent);
@@ -57,8 +81,38 @@ const EditStudent = () => {
     }
   };
 
+  const handleAddSchooling = () => {
+    setSchooling([...schooling, { schooling_id: 0, graduation: "", conclusion: "", institution: "" }]);
+  };
+
+  const handleAddProfessionalExperience = () => {
+    setProfessionalExperience([...professionalExperience, { experience_id: 0, position: "", contractor_id: 0, start_date: "", end_date: "", ongoing: 0 }]);
+  };
+
+  const handleSchoolingChange = (index: number, field: keyof Schooling, value: string) => {
+    const updatedSchooling = schooling.map((item, i) => {
+      if (i === index) {
+        return { ...item, [field]: value };
+      }
+      return item;
+    });
+    setSchooling(updatedSchooling);
+  };
+
+  const handleProfessionalExperienceChange = (index: number, field: keyof ProfessionalExperience, value: string) => {
+    const updatedProfessionalExperience = professionalExperience.map((item, i) => {
+      if (i === index) {
+        return { ...item, [field]: value };
+      }
+      return item;
+    });
+    setProfessionalExperience(updatedProfessionalExperience);
+  };
+
   return (
-    <Container disableGutters>
+    <Container disableGutters className="createStudentsContainer">
+    <Header />
+    <Box sx={{ marginTop: "64px" }}></Box>
       <Box>
         <Box
           sx={{
@@ -104,6 +158,7 @@ const EditStudent = () => {
                 fullWidth
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                className="studentsInput"
               />
               <TextField
                 label="Matrícula"
@@ -111,6 +166,7 @@ const EditStudent = () => {
                 fullWidth
                 value={registration}
                 onChange={(e) => setRegistration(e.target.value)}
+                className="studentsInput"
               />
             </Box>
             <Box
@@ -127,6 +183,7 @@ const EditStudent = () => {
                 fullWidth
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className="studentsInput"
               />
               <TextField
                 label="Curso"
@@ -134,14 +191,178 @@ const EditStudent = () => {
                 fullWidth
                 value={course}
                 onChange={(e) => setCourse(e.target.value)}
+                className="studentsInput"
               />
             </Box>
           </Box>
 
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+              width: "100%",
+            }}
+          >
+            <Typography variant="h6">Escolaridade</Typography>
+            {schooling.map((item, index) => (
+              <Box
+                key={index}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: "0.5rem",
+                  alignItems: "center",
+                }}
+              >
+                <TextField
+                  label="Graduação"
+                  variant="outlined"
+                  fullWidth
+                  value={item.graduation}
+                  onChange={(e) =>
+                    handleSchoolingChange(index, "graduation", e.target.value)
+                  }
+                  className="studentsInput"
+                />
+                <TextField
+                  label="Conclusão"
+                  variant="outlined"
+                  fullWidth
+                  value={item.conclusion}
+                  onChange={(e) =>
+                    handleSchoolingChange(index, "conclusion", e.target.value)
+                  }
+                  className="studentsInput"
+                />
+                <TextField
+                  label="Instituição"
+                  variant="outlined"
+                  fullWidth
+                  value={item.institution}
+                  onChange={(e) =>
+                    handleSchoolingChange(index, "institution", e.target.value)
+                  }
+                  className="studentsInput"
+                />
+              </Box>
+            ))}
+            <Button variant="outlined" onClick={handleAddSchooling}>
+              Adicionar Escolaridade
+            </Button>
+          </Box>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+              width: "100%",
+            }}
+          >
+            <Typography variant="h6">Experiência Profissional</Typography>
+            {professionalExperience.map((item, index) => (
+              <Box
+                key={index}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: "0.5rem",
+                  alignItems: "center",
+                }}
+              >
+                <TextField
+                  label="Cargo"
+                  variant="outlined"
+                  fullWidth
+                  value={item.position}
+                  onChange={(e) =>
+                    handleProfessionalExperienceChange(
+                      index,
+                      "position",
+                      e.target.value
+                    )
+                  }
+                  className="studentsInput"
+                />
+                <TextField
+                  label="CNPJ da Empresa"
+                  variant="outlined"
+                  fullWidth
+                  value={item.contractor_id.toString()}
+                  onChange={(e) =>
+                    handleProfessionalExperienceChange(
+                      index,
+                      "contractor_id",
+                      e.target.value
+                    )
+                  }
+                  className="studentsInput"
+                />
+                <TextField
+                  label="Data de Início"
+                  variant="outlined"
+                  fullWidth
+                  value={item.start_date}
+                  onChange={(e) =>
+                    handleProfessionalExperienceChange(
+                      index,
+                      "start_date",
+                      e.target.value
+                    )
+                  }
+                  className="studentsInput"
+                />
+                <TextField
+                  label="Data de Término"
+                  variant="outlined"
+                  fullWidth
+                  value={item.end_date}
+                  onChange={(e) =>
+                    handleProfessionalExperienceChange(
+                      index,
+                      "end_date",
+                      e.target.value
+                    )
+                  }
+                  className="studentsInput"
+                />
+                <TextField
+                  label="Em Andamento"
+                  variant="outlined"
+                  fullWidth
+                  value={item.ongoing.toString()}
+                  onChange={(e) =>
+                    handleProfessionalExperienceChange(
+                      index,
+                      "ongoing",
+                      e.target.value
+                    )
+                  }
+                  className="studentsInput"
+                />
+              </Box>
+            ))}
+            <Button
+              variant="outlined"
+              onClick={handleAddProfessionalExperience}
+            >
+              Adicionar Experiência Profissional
+            </Button>
+          </Box>
+
           <div className="buttonContainer">
-                <ButtonYellow text="Cancelar" styles={{}} onClick={handleNavigateToList} />
-                <ButtonYellow text="Criar/Salvar" styles={{}} onClick={handleSave} />
-            </div>
+            <ButtonYellow
+              text="Cancelar"
+              styles={{}}
+              onClick={handleNavigateToList}
+            />
+            <ButtonYellow
+              text="Criar/Salvar"
+              styles={{}}
+              onClick={handleSave}
+            />
+          </div>
         </Box>
       </Box>
     </Container>
