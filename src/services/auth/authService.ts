@@ -8,7 +8,7 @@ interface LoginResponse {
 }
 
 const login = async (email: string, password: string) => {
-    const body = buildBody(email, password);
+    const body = builLoginBody(email, password);
 
     const response = await oauthApi.post('/login', body, {
         headers: {
@@ -18,7 +18,7 @@ const login = async (email: string, password: string) => {
     return response.data as LoginResponse;
 }
 
-const buildBody = (email: string, password: string) => {
+const builLoginBody = (email: string, password: string) => {
     const form = new URLSearchParams();
     form.append('username', email);
     form.append('password', password);
