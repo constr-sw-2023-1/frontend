@@ -2,8 +2,8 @@ import axios from "axios"
 import { Student } from "./model/student"
 
 export const fetchStudents = async () => {
-    const res = await axios.get("http://localhost:8080/students")
-    return res.data.students.students
+    const res = await axios.get("http://localhost:8080/students?enabled=true")
+    return res.data.students
 }
 
 export const createStudent = async (studentData: Student) => {

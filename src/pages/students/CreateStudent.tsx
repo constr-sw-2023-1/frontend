@@ -39,6 +39,11 @@ export default function CreateStudent(): JSX.Element {
         setMessage(res.message)
 
 
+        if (message) {
+            setTimeout(() => {
+                handleNavigateToList()
+            }, 3000)
+        }
     };
 
     return (

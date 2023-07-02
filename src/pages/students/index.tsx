@@ -8,13 +8,17 @@ import ButtonYellow from "./components/ButtonYellow";
 import "./students.css";
 import { Student } from "./model/student";
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'
-import { fetchStudents } from "./studentsRequests";
+import { fetchStudents, deleteStudents } from "./studentsRequests";
 
 const Students = () => {
 
-    const handleDelete = (student_id: number | string) => {
-        //Fazer a chamada para a API para deletar o aluno
+    const handleDelete = async (student_id: number | string) => {
+        let res = await deleteStudents(student_id)
+
+        setTimeout(async () => {
+            let results = await fetchStudents()
+            setStudents(results)
+        }, 500)
 
     };
     const [students, setStudents] = useState<Student[]>([]);
