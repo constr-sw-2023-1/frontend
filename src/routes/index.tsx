@@ -4,9 +4,11 @@ import PrivateRoute from "./PrivateRoute";
 import Lessons from "@pages/Lessons";
 import Types from "@pages/Lessons/types";
 import CreateLesson from "@pages/Lessons/CreateLesson";
-import ProfessorList from "@pages/Professors";
-import CreateProfessor from "@pages/Professors/CreateProfessor";
+import ProfessorList from "@pages/PrivatePages/Professors";
+import CreateProfessor from "@pages/PrivatePages/Professors/CreateProfessor";
 import PrivatePages from "@pages/PrivatePages";
+import Certifications from "@pages/PrivatePages/Certifications";
+import CreateCertification from "@pages/PrivatePages/Certifications/CreateCertification";
 import Classes from "@pages/PrivatePages/Classes"
 import Login from "@pages/Login";
 
@@ -23,6 +25,9 @@ export default function RoutesComponent() {
         <Route path="lessons/create" element={<CreateLesson />} />
         <Route path="/professors" element={<ProfessorList />} />
         <Route path="/professors/create" element={<CreateProfessor />} />
+        <Route path="/professors/certificates" element={<Certifications />} />
+        <Route path="/professors/certificates/create" element={<CreateCertification />} />
+        <Route path="/professors/certificates/:id" element={<CreateCertification />} />
         <Route path="/Turmas" element={<Classes/>}/>
         <Route path="/login" element={<Login/>}/>
       </Route>
