@@ -6,6 +6,7 @@ import ButtonYellow from "./components/ButtonYellow";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { createStudent } from "./studentsRequests";
 import { Student } from "./model/student";
+import Header from "@components/Header";
 
 export default function CreateStudent(): JSX.Element {
 
@@ -48,11 +49,13 @@ export default function CreateStudent(): JSX.Element {
 
     return (
         <Container disableGutters className="createStudentsContainer">
+            <Header />
+            <Box sx={{ marginTop: "64px" }}></Box>
             <Box>
                 <Box sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
                     <ManageAccountsIcon sx={{ color: "#E78901", width: "40px", height: "40px" }} />
                     <Typography variant="h4" fontWeight={500}>
-                        Criar/Editar Aluno
+                        Criar Aluno
                     </Typography>
                 </Box>
 

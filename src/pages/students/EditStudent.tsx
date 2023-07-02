@@ -65,10 +65,12 @@ const EditStudent = () => {
   const handleSave = async () => {
     try {
       const updatedStudent = {
+        student_id: id,
         name,
         registration,
         email,
         course,
+        enabled: true,
         schooling,
         professional_experience: professionalExperience,
       };
