@@ -1,30 +1,33 @@
-import Dashboard from "@pages/Dashboard";
-import { Route, Routes } from "react-router-dom";
-import PrivateRoute from "./PrivateRoute";
-import Subjects from "@pages/Lessons";
-import Types from "@pages/Lessons/Types";
-import CreateLesson from "@pages/Lessons/CreateLesson";
-import CreateSubject from "@pages/Lessons/CreateSubject";
-import Lessons from "@pages/Lessons/Lessons";
-import CreateType from "@pages/Lessons/CreateType";
-import EditSubject from "@pages/Lessons/EditSubject";
-import EditType from "@pages/Lessons/EditType";
-import EditLesson from "@pages/Lessons/EditLesson";
+import Dashboard from '@pages/Dashboard';
+import { Route, Routes } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
+import Subjects from '@pages/PrivatePages/Lessons/Subjects';
+import Types from '@pages/PrivatePages/Lessons/Types';
+import Lessons from '@pages/PrivatePages/Lessons';
+import CreateEditSubject from '@pages/PrivatePages/Lessons/CreateEditSubject';
+import CreateEditType from '@pages/PrivatePages/Lessons/CreateEditType';
+import CreateEditLesson from '@pages/PrivatePages/Lessons/CreateEditLesson';
 
 export default function RoutesComponent() {
   return (
     <Routes>
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/" element={<Dashboard />} />
-        <Route path="subjects" element={<Subjects />} />
-        <Route path="subjects/lessons" element={<Lessons />} />
-        <Route path="subjects/types" element={<Types />} />
-        <Route path="subjects/types/create" element={<CreateType />} />
-        <Route path="subjects/lessons/create" element={<CreateLesson />} />
-        <Route path="subjects/create" element={<CreateSubject />} />
-        <Route path="/subjects/edit/:id" element={<EditSubject />} />
-        <Route path="/subjects/types/edit/:id" element={<EditType />} />
-        <Route path="/subjects/lessons/edit/:id" element={<EditLesson />} />
+        <Route path="/lessons/subjects" element={<Subjects />} />
+        <Route path="/lessons" element={<Lessons />} />
+        <Route path="/lessons/types" element={<Types />} />
+        <Route path="/lessons/types/create" element={<CreateEditType />} />
+        <Route path="/lessons/create" element={<CreateEditLesson />} />
+        <Route
+          path="/lessons/subjects/create"
+          element={<CreateEditSubject />}
+        />
+        <Route
+          path="/lessons/subjects/edit/:id"
+          element={<CreateEditSubject />}
+        />
+        <Route path="/lessons/types/edit/:id" element={<CreateEditType />} />
+        <Route path="/lessons/edit/:id" element={<CreateEditLesson />} />
       </Route>
     </Routes>
   );
