@@ -3,6 +3,7 @@ import { Alert, AlertTitle, Box, Button, FormControl, InputLabel, MenuItem, Sele
 import DomainIcon from '@mui/icons-material/Domain';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useParams, useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 const CreateEdit = () => {
   const [classe, setClasse] = useState<classeInterface>({
@@ -42,6 +43,11 @@ const CreateEdit = () => {
     getShifts();
   }, [])
 
+  const generateUUID = () => {
+    const uuid = uuidv4();
+    return uuid;
+  };
+
   const getClass = async () => {
     const response = await fetch(`http://localhost:3000/api/classes/${params.id}`)
     const json = await response.json();
@@ -69,7 +75,7 @@ const CreateEdit = () => {
     setShowError(false);
     const response = await fetch('http://localhost:3000/api/classes', {
       method: 'POST',
-      body: JSON.stringify({ ...classe, schedule: [] }),
+      body: JSON.stringify({ ...classe, schedule: [], id: generateUUID() }),
       headers: {
         "Content-Type": "application/json"
       }
@@ -115,9 +121,6 @@ const CreateEdit = () => {
           {errorMessage}
         </Alert>)}
         <Box display={'flex'} flexDirection={'column'} flexWrap={'wrap'} gap={5} marginTop={5}>
-          <TextField label="ID da Turma (UUID v4)" value={classe ? classe.id : ''} onChange={(e) => {
-            setClasse({ numClass: classe?.numClass, year: classe?.year, semester: classe?.semester, classShiftId: classe?.classShiftId, active: classe?.active, id: e.target.value });
-          }} />
           <TextField label="Número da Turma" value={classe ? classe.numClass : ''} onChange={(e) => {
             setClasse({ id: classe?.id, year: classe?.year, semester: classe?.semester, classShiftId: classe?.classShiftId, active: classe?.active, numClass: e.target.value });
           }} />
