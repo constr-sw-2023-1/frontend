@@ -5,6 +5,7 @@ import PrivatePages from '@pages/PrivatePages';
 import Certifications from '@pages/PrivatePages/Certifications';
 import CreateCertification from '@pages/PrivatePages/Certifications/CreateCertification';
 import Classes from '@pages/PrivatePages/Classes';
+import CreateEdit from '@pages/PrivatePages/Classes/CreateEdit/CreateEdit';
 import Lessons from '@pages/PrivatePages/Lessons';
 import CreateEditLesson from '@pages/PrivatePages/Lessons/CreateEditLesson';
 import CreateEditSubject from '@pages/PrivatePages/Lessons/CreateEditSubject';
@@ -56,6 +57,7 @@ export default function RoutesComponent() {
           element={<CreateCertification />}
         />
         <Route path="/Turmas" element={<Classes />} />
+        <Route path="/Turmas/:id" element={<CreateEdit />} />
         <Route path="/login" element={<Login />} />
         <Route path="/Periodos" element={<Shifts />} />
         <Route path="/create-shift" element={<CreateShiftsPage name={''} />} />
