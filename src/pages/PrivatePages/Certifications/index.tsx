@@ -37,7 +37,7 @@ const Certifications = () => {
           <Typography typography="body">Instituição: {certification.institution}</Typography>
         </Box>
         <Box >
-          <Button onClick={() => { navigate(`/professors/certificates/${certification.id}`) }}>
+          <Button onClick={() => { navigate(`/professors/certifications/${certification.id}`) }}>
             <EditIcon style={{ color: 'black' }} />
           </Button>
           <Button onClick={() => { deleteCertification(certification.id) }}>
@@ -71,7 +71,7 @@ const Certifications = () => {
           borderRadius: 8,
           padding: 2,
           alignItems: 'center'
-        }} icon={<AddIcon/>} text="Criar" onClick={() => navigate("/professors/certificates/create")}/>
+        }} icon={<AddIcon/>} text="Criar" onClick={() => navigate("/professors/certifications/create")}/>
       </Box>
     </Box>
   );
