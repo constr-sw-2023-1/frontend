@@ -12,6 +12,7 @@ import Shifts from "@pages/PrivatePages/Shifts/ShiftsPage";
 import Certifications from "@pages/PrivatePages/Certifications";
 import CreateCertification from "@pages/PrivatePages/Certifications/CreateCertification";
 import Classes from "@pages/PrivatePages/Classes"
+import CreateEdit from "@pages/PrivatePages/Classes/CreateEdit/CreateEdit"
 import Login from "@pages/Login";
 
 export default function RoutesComponent() {
@@ -31,6 +32,7 @@ export default function RoutesComponent() {
         <Route path="/professors/certificates/create" element={<CreateCertification />} />
         <Route path="/professors/certificates/:id" element={<CreateCertification />} />
         <Route path="/Turmas" element={<Classes />} />
+        <Route path="/Turmas/:id" element={<CreateEdit/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/Periodos" element={<Shifts />} />
         <Route path="/create-shift" element={<CreateShiftsPage name={""} />} />
