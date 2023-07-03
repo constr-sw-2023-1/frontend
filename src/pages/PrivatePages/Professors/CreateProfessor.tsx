@@ -1,8 +1,9 @@
 import { Box, Container, Typography, Input, List, ListItem, IconButton, ListItemText, TextField, Snackbar, Alert } from "@mui/material";
 import { useState } from "react";
-//import "./Professors.css";
+import "./Professors.css";
 import { useNavigate } from 'react-router-dom';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateField } from '@mui/x-date-pickers/DateField';
@@ -73,7 +74,7 @@ export default function CreateProfessor(): JSX.Element {
       handleNavigateToProfessor(); // Redirecionar após o salvamento
     } catch (error) {
       setShowErrorSnackbar(true);
-      console.log("Erro ao salvar aula:", error);
+      console.log("Erro ao salvar professor:", error);
     }
   };
 
@@ -182,8 +183,8 @@ export default function CreateProfessor(): JSX.Element {
         <AddIcon />
       </IconButton>
       <div className="buttonContainer">
-        <ButtonBlue text="Cancelar" styles={{}} onClick={handleNavigateToProfessor} />
-        <ButtonBlue text="Salvar" styles={{}} onClick={handleSaveProfessor} />
+        <ButtonBlue text="Cancelar" icon={<CheckCircleIcon/>} styles={{}} onClick={handleNavigateToProfessor} />
+        <ButtonBlue text="Salvar" icon={<CancelIcon/>} styles={{}} onClick={handleSaveProfessor} />
       </div>
       <Snackbar
         open={showSuccessSnackbar}
