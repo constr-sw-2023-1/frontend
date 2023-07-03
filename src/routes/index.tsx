@@ -13,6 +13,8 @@ import Subjects from '@pages/PrivatePages/Lessons/Subjects';
 import Types from '@pages/PrivatePages/Lessons/Types';
 import ProfessorList from '@pages/PrivatePages/Professors';
 import CreateProfessor from '@pages/PrivatePages/Professors/CreateProfessor';
+import CreateShiftsPage from '@pages/PrivatePages/Shifts/CreateShiftsPage';
+import Shifts from '@pages/PrivatePages/Shifts/ShiftsPage';
 import { Route, Routes } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 
@@ -30,16 +32,6 @@ export default function RoutesComponent() {
         <Route path="/professors" element={<ProfessorList />} />
         <Route path="/professors/create" element={<CreateProfessor />} />
         <Route path="/professors/certificates" element={<Certifications />} />
-        <Route
-          path="/professors/certificates/create"
-          element={<CreateCertification />}
-        />
-        <Route
-          path="/professors/certificates/:id"
-          element={<CreateCertification />}
-        />
-        <Route path="/Turmas" element={<Classes />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/lessons/subjects" element={<Subjects />} />
         <Route path="/lessons" element={<Lessons />} />
         <Route path="/lessons/types" element={<Types />} />
@@ -55,6 +47,22 @@ export default function RoutesComponent() {
         />
         <Route path="/lessons/types/edit/:id" element={<CreateEditType />} />
         <Route path="/lessons/edit/:id" element={<CreateEditLesson />} />
+        <Route
+          path="/professors/certificates/create"
+          element={<CreateCertification />}
+        />
+        <Route
+          path="/professors/certificates/:id"
+          element={<CreateCertification />}
+        />
+        <Route path="/Turmas" element={<Classes />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/Periodos" element={<Shifts />} />
+        <Route path="/create-shift" element={<CreateShiftsPage name={''} />} />
+        <Route
+          path="/edit-shift/:id"
+          element={<CreateShiftsPage name={''} />}
+        />
       </Route>
     </Routes>
   );
