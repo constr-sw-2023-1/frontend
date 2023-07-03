@@ -1,7 +1,7 @@
 const env = {
-    PROTOCOL: 'http',
-    PORT: '3333',
-    APPLICATION_IP: 'XXXXXXXXXX'
-  }
-  
-  export default env
+  PROTOCOL: 'http',
+  PORT: '8081',
+  APPLICATION_IP: 'localhost'
+}
+
+export default env
