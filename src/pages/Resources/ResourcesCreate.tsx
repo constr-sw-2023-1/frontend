@@ -1,9 +1,10 @@
 import Header from "@components/Header";
 import ComputerIcon from '@mui/icons-material/Computer';
-import { Autocomplete, Box, Button, Container, Grid, Input, TextField, Typography } from "@mui/material";
+import { Autocomplete, Box, Button, Container, Divider, Grid, IconButton, Input, TextField, Typography } from "@mui/material";
 import ResourceService, { CreateResource, ResourceConfiguration, ResourceManufacturer, ResourceType } from "@services/Resources";
 import { v4 as uuidv4 } from 'uuid';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { useCallback, useEffect, useState } from "react";
 import OrangeButton from "./component/OrangeButton";
@@ -24,19 +25,14 @@ class UICreateResource {
     configurations?: ResourceConfiguration[]
 
     toCreate(): CreateResource {
-        return {
-            id: this.id,
-            description: this.description,
-            manufactorUUID: this.manufactor?.id,
-            typeUUID: this.type?.id,
-            configurations: this.configurations
-        } as CreateResource
+        let resource = Object.assign(new CreateResource(), this)
+        return resource
     }
 }
 
 export default function ResourcesCreate() {
 
-    const [newResource, setNewResource] = useState({} as UICreateResource)
+    const [newResource, setNewResource] = useState({id: uuidv4()} as UICreateResource)
     const [types, setTypes] = useState([] as UITypeManufacture[])
     const [manufactures, setManufactures] = useState([] as UITypeManufacture[])
 
@@ -74,7 +70,26 @@ export default function ResourcesCreate() {
 
     const addConfig = () => {
         let configuration = { description: '', component: '' }
-        setNewResource({...newResource, configurations: [...newResource.configurations ?? [], configuration]} as UICreateResource)
+        setNewResource({ ...newResource, configurations: [...newResource.configurations ?? [], configuration] } as UICreateResource)
+    }
+
+    const removeConfig = (idx: number) => {
+        let newConfigs = [...newResource.configurations!]
+        newConfigs.splice(idx, 1)
+        console.log(newConfigs)
+        setNewResource({ ...newResource, configurations: newConfigs } as UICreateResource)
+    }
+
+    const saveNewResource = async () => {
+        if(newResource.manufactor?.new) {
+            await resourceService.saveManufactures({id: newResource.manufactor.id!, name: newResource.manufactor.name})
+        }
+        if(newResource.type?.new) {
+            await resourceService.saveType({id: newResource.type.id!, name: newResource.type.name})
+        }
+        let resourceToCreate = Object.assign(new UICreateResource(), newResource).toCreate()
+        await resourceService.saveNewResource(resourceToCreate)
+        window.location.href = "/resources"
     }
 
     return (
@@ -97,7 +112,7 @@ export default function ResourcesCreate() {
                     <Grid item xs={5}>
                         <TextField value={newResource.description ?? ''}
                             onChange={it => setNewResource({ ...newResource, description: it.target.value } as UICreateResource)}
-                            label="Description" sx={{ width: "100%" }} />
+                            label="Descrição" sx={{ width: "100%" }} />
                     </Grid>
 
                     <Grid item xs={5}>
@@ -115,30 +130,35 @@ export default function ResourcesCreate() {
                                 label="Tipo" />} />
                     </Grid>
                 </Grid>
-                <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
+                <Grid container direction={"row"} alignItems={"center"} justifyContent="center">
+                    <Divider sx={{ marginTop: "20px", width: "80%" }}>Configurações</Divider>
+                </Grid>
+                <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2} sx={{ marginTop: "10px" }}>
+
                     {newResource.configurations?.map((configuration, idx) => {
                         return (
-                            <Grid container direction={"row"} justifyContent="center" alignItems="center" spacing={2}>
+                            <Grid key={"config" + idx} container direction={"row"} justifyContent="center" alignItems="center" spacing={2} sx={{ marginTop: "10px" }}>
                                 <Grid item xs={5}>
                                     <TextField value={newResource.configurations![idx].component}
-                                        onChange={it => changeConfiguration(idx, { description: newResource.configurations![idx].component, component: it.target.value })}
-                                        label="Id" sx={{ width: "100%" }} />
+                                        onChange={it => changeConfiguration(idx, { description: newResource.configurations![idx].description, component: it.target.value })}
+                                        label="Componente" sx={{ width: "100%" }} />
                                 </Grid>
                                 <Grid item xs={5}>
                                     <TextField value={newResource.configurations![idx].description}
                                         onChange={it => changeConfiguration(idx, { description: it.target.value, component: newResource.configurations![idx].component })}
-                                        label="Description" sx={{ width: "100%" }} />
+                                        label="Descrição" sx={{ width: "90%" }} />
+                                    <IconButton onClick={it => removeConfig(idx)} size="large" color="error" sx={{ marginRight: '1rem' }}><RemoveIcon /></IconButton>
                                 </Grid>
                             </Grid>
                         )
                     })
                     }
-                    <Grid container direction="row" justifyContent="center" alignItems="center">
-                        <OrangeButton text="ADICIONAR" startIcon={<AddIcon />} onClick={() => addConfig()}/>
+                    <Grid>
+                        <OrangeButton text="ADICIONAR" startIcon={<AddIcon />} styles={{ marginTop: "10px" }} onClick={() => addConfig()} />
                     </Grid>
                 </Grid>
-                
-                <OrangeButton text="SAlVAR" startIcon={<CheckCircleIcon />} styles={{ position: "fixed",top: "90%", left: "90%"}} onClick={() => undefined}/>
+
+                <OrangeButton text="SAlVAR" startIcon={<CheckCircleIcon />} styles={{ position: "fixed", top: "90%", left: "90%" }} onClick={saveNewResource} />
             </Box >
         </>
     )
