@@ -1,12 +1,22 @@
 import { Box, Container, Icon, Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Professors.css';
 import WorkOutlinedIcon from '@mui/icons-material/WorkOutlined';
-import { Professor } from './model/professor';
+import {findAll, deleteById} from '@services/professorsService';
+import { IProfessor } from './model/professor';
 
 const ProfessorList = (): JSX.Element => {
 
-  const [professors, setProfessors] = React.useState<Professor[]>([]);
+  const [professors, setProfessors] = React.useState<IProfessor[]>([]);
+
+  const getAll = async () => {
+    const allProfessors = await findAll();
+    setProfessors(allProfessors.data);
+  }
+
+  useEffect(() => {
+    getAll();
+  }, []);
 
   return (
     <Container disableGutters className="lessonsContainer">

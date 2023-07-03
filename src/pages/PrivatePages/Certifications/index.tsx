@@ -5,8 +5,8 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {useNavigate} from "react-router-dom";
-import {ICertification} from "@shared/ICertification";
-import {findAll, deleteById} from '@services/CertificationsService';
+import {ICertification} from "@pages/PrivatePages/Certifications/model/certification";
+import {findAll, deleteById} from '@services/certificationsService';
 import ButtonBlue from "../Professors/components/ButtonBlue";
 
 const Certifications = () => {

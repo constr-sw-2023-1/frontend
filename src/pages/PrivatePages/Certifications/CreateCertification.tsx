@@ -34,14 +34,14 @@ const CreateCertification = () => {
   const saveCertification = async () => {
     if (id) {
 
-      await update(id, { name, level, institution }).then(() => { setShowSuccessSnackbar(true); navigate(`/professors/certificates`) }).catch(err => {
+      await update(id, { name, level, institution }).then(() => { setShowSuccessSnackbar(true); navigate(`/professors/certifications`) }).catch(err => {
         setShowErrorSnackbar(true);
         console.log("Erro ao atualizar professor:", err);
       });
 
     } else {
 
-      await create({ name, level, institution }).then(() => { setShowSuccessSnackbar(true); navigate(`/professors/certificates`) }).catch(err => {
+      await create({ name, level, institution }).then(() => { setShowSuccessSnackbar(true); navigate(`/professors/certifications`) }).catch(err => {
         setShowErrorSnackbar(true);
         console.log("Erro ao salvar certificado:", err);
       });
@@ -105,7 +105,7 @@ const CreateCertification = () => {
           flexDirection: 'column',
           gap: '10px'
         }}>
-          <ButtonBlue icon={<CancelIcon/>} text="Cancelar" onClick={() => navigate(`/professors/certificates`) }/>
+          <ButtonBlue icon={<CancelIcon/>} text="Cancelar" onClick={() => navigate(`/professors/certifications`) }/>
           <ButtonBlue icon={<CheckCircleIcon/>} text="Salvar" onClick={() => saveCertification()}/>
         </Box>
       </Box>

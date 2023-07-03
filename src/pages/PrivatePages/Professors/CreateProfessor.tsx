@@ -1,4 +1,4 @@
-import { Box, Container, Typography, Input, List, ListItem, IconButton, ListItemText, TextField, Snackbar, Alert } from "@mui/material";
+import { Box, Container, Typography, Input, List, ListItem, IconButton, TextField, Snackbar, Alert } from "@mui/material";
 import { useState } from "react";
 import "./Professors.css";
 import { useNavigate } from 'react-router-dom';
@@ -12,8 +12,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import ButtonBlue from "./components/ButtonBlue";
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import axios from "axios";
+import { create, update, findById } from '@services/professorsService';
 import { Identification } from "./model/identification";
+import { IIdentification, IProfessor } from "./model/professor";
 
 export default function CreateProfessor(): JSX.Element {
 
@@ -59,22 +60,21 @@ export default function CreateProfessor(): JSX.Element {
 
   const handleSaveProfessor = async () => {
     try {
-      const professorData = {
+      const professorData: IProfessor = {
         registration: registration,
         name: name,
-        bornDate: birthDate,
-        admissionDate: admissionDate,
+        bornDate: birthDate as Date,
+        admissionDate: admissionDate as Date,
         active: true,
-        identification: identification.map((e) => { })
+        identification: identification.map((e) => { return { type: e.type, value: e.value } as IIdentification })
       };
 
-      await axios.post("http://localhost:8083/professors/", professorData);
+      await create(professorData);
       setShowSuccessSnackbar(true);
 
       handleNavigateToProfessor(); // Redirecionar após o salvamento
     } catch (error) {
       setShowErrorSnackbar(true);
-      console.log("Erro ao salvar professor:", error);
     }
   };
 
