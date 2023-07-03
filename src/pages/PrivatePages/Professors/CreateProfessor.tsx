@@ -66,7 +66,7 @@ export default function CreateProfessor(): JSX.Element {
         bornDate: birthDate as Date,
         admissionDate: admissionDate as Date,
         active: true,
-        identification: identification.map((e) => { return { type: e.type, value: e.value } as IIdentification })
+        identifications: identification.map((e) => { return { type: e.type, value: e.value } as IIdentification })
       };
 
       await create(professorData);

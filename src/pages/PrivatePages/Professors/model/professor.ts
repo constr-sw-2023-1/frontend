@@ -4,7 +4,7 @@ export interface IProfessor {
     bornDate: Date,
     admissionDate: Date,
     active: boolean,
-    identification: IIdentification[]
+    identifications: IIdentification[]
 }
 
 export interface IIdentification {
