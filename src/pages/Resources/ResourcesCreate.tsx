@@ -4,8 +4,9 @@ import { Autocomplete, Box, Button, Container, Grid, Input, TextField, Typograph
 import ResourceService, { CreateResource, ResourceConfiguration, ResourceManufacturer, ResourceType } from "@services/Resources";
 import { v4 as uuidv4 } from 'uuid';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CircleIcon from '@mui/icons-material/Circle';
+import AddIcon from '@mui/icons-material/Add';
 import { useCallback, useEffect, useState } from "react";
+import OrangeButton from "./component/OrangeButton";
 
 const resourceService = new ResourceService()
 
@@ -65,6 +66,17 @@ export default function ResourcesCreate() {
         setNewResource({ ...newResource, manufactor } as UICreateResource)
     }
 
+    const changeConfiguration = (idx: number, { description, component }: any) => {
+        let configurations = newResource.configurations!
+        configurations[idx] = { description, component }
+        setNewResource({ ...newResource, configurations } as UICreateResource)
+    }
+
+    const addConfig = () => {
+        let configuration = { description: '', component: '' }
+        setNewResource({...newResource, configurations: [...newResource.configurations ?? [], configuration]} as UICreateResource)
+    }
+
     return (
         <>
             <Box>
@@ -104,22 +116,29 @@ export default function ResourcesCreate() {
                     </Grid>
                 </Grid>
                 <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
-                    { }
+                    {newResource.configurations?.map((configuration, idx) => {
+                        return (
+                            <Grid container direction={"row"} justifyContent="center" alignItems="center" spacing={2}>
+                                <Grid item xs={5}>
+                                    <TextField value={newResource.configurations![idx].component}
+                                        onChange={it => changeConfiguration(idx, { description: newResource.configurations![idx].component, component: it.target.value })}
+                                        label="Id" sx={{ width: "100%" }} />
+                                </Grid>
+                                <Grid item xs={5}>
+                                    <TextField value={newResource.configurations![idx].description}
+                                        onChange={it => changeConfiguration(idx, { description: it.target.value, component: newResource.configurations![idx].component })}
+                                        label="Description" sx={{ width: "100%" }} />
+                                </Grid>
+                            </Grid>
+                        )
+                    })
+                    }
+                    <Grid container direction="row" justifyContent="center" alignItems="center">
+                        <OrangeButton text="ADICIONAR" startIcon={<AddIcon />} onClick={() => addConfig()}/>
+                    </Grid>
                 </Grid>
-                <Button href="/resources/create" color="secondary" variant="contained" startIcon={<CheckCircleIcon />}
-                    sx={{
-                        borderRadius: '28px',
-                        padding: '16px ',
-                        color: 'black',
-                        bgcolor: "#F18F01",
-                        position: "fixed",
-                        "&:hover": {
-                            bgcolor: "#FFA500",
-                            color: "black",
-                        },
-                        top: "90%",
-                        left: "90%"
-                    }}> SALVAR</Button>
+                
+                <OrangeButton text="SAlVAR" startIcon={<CheckCircleIcon />} styles={{ position: "fixed",top: "90%", left: "90%"}} onClick={() => undefined}/>
             </Box >
         </>
     )

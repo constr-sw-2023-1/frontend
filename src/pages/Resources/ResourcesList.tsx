@@ -6,6 +6,7 @@ import ComputerIcon from '@mui/icons-material/Computer';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import OrangeButton from "./component/OrangeButton";
 
 const resourceService = new ResourceService()
 
@@ -15,7 +16,7 @@ export default function ResourcesList() {
 
 	const loadResources = useCallback(() => {
 		resourceService.loadResources()
-		.then((response) => setResources(response.data as Resource[]))
+			.then((response) => setResources(response.data as Resource[]))
 	}, [])
 
 	useEffect(() => {
@@ -34,13 +35,13 @@ export default function ResourcesList() {
 						</Box>
 						<Box>
 							<IconButton size="large" sx={{ marginRight: '1rem' }}><EditIcon /></IconButton>
-							<IconButton size="large"><DeleteIcon color="error"/></IconButton>
+							<IconButton size="large"><DeleteIcon color="error" /></IconButton>
 						</Box>
 					</Box>
 				</CardContent>
 			</Card>
 		)
-	}) : [1,2,3,4].map((id) => {
+	}) : [1, 2, 3, 4].map((id) => {
 		return (
 			<Skeleton key={`resource_card_skeleton${id}`} variant="rectangular" animation="wave" height={90} sx={{ marginTop: "15px" }}></Skeleton>
 		)
@@ -61,20 +62,7 @@ export default function ResourcesList() {
 						{CardList}
 					</Box>
 				</Container>
-				<Button href="/resources/create" color="secondary" variant="contained" startIcon={<AddIcon />}
-					sx={{
-						borderRadius: '28px',
-						padding: '16px ',
-						color: 'black',
-						bgcolor: "#F18F01",
-						position: "fixed",
-						"&:hover": {
-							bgcolor: "#FFA500",
-							color: "black",
-						},
-						top: "90%",
-						left: "90%"
-					}}> CRIAR</Button>
+				<OrangeButton text="CRIAR" startIcon={<AddIcon />} styles={{ position: "fixed", top: "90%", left: "90%" }} href="/resources/create" />
 			</Box>
 		</>
 	);
