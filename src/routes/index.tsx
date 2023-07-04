@@ -1,5 +1,4 @@
 import Dashboard from '@pages/Dashboard';
-import CreateLesson from '@pages/Lessons/CreateLesson';
 import Login from '@pages/Login';
 import PrivatePages from '@pages/PrivatePages';
 import Certifications from '@pages/PrivatePages/Certifications';
@@ -29,7 +28,7 @@ export default function RoutesComponent() {
         <Route path="/" element={<Dashboard />} />
         <Route path="lessons" element={<Lessons />} />
         <Route path="lessons/types" element={<Types />} />
-        <Route path="lessons/create" element={<CreateLesson />} />
+        <Route path="lessons/create" element={<CreateEditLesson />} />
         <Route path="/professors" element={<ProfessorList />} />
         <Route path="/professors/create" element={<CreateProfessor />} />
         <Route path="/professors/certificates" element={<Certifications />} />
