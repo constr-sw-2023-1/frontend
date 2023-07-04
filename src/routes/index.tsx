@@ -14,6 +14,7 @@ import Classes from "@pages/PrivatePages/Classes"
 import CreateEdit from "@pages/PrivatePages/Classes/CreateEdit/CreateEdit"
 import Login from "@pages/Login";
 import ProfessorList from "@pages/PrivatePages/Professors";
+import EditProfessors from "@pages/Professors/EditProfessors";
 
 export default function RoutesComponent() {
   return (
@@ -27,6 +28,7 @@ export default function RoutesComponent() {
         <Route path="lessons/types" element={<Types />} />
         <Route path="lessons/create" element={<CreateLesson />} />
         <Route path="/professors" element={<ProfessorList />} />
+        <Route path="/professors/:id" element={<EditProfessors />} />
         <Route path="/professors/create" element={<CreateProfessor />} />
         <Route path="/Turmas" element={<Classes />} />
         <Route path="/Turmas/:id" element={<CreateEdit/>}/>

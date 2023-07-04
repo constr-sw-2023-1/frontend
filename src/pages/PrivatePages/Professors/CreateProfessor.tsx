@@ -183,8 +183,8 @@ export default function CreateProfessor(): JSX.Element {
         <AddIcon />
       </IconButton>
       <div className="buttonContainer">
-        <ButtonBlue text="Cancelar" icon={<CheckCircleIcon/>} styles={{}} onClick={handleNavigateToProfessor} />
-        <ButtonBlue text="Salvar" icon={<CancelIcon/>} styles={{}} onClick={handleSaveProfessor} />
+        <ButtonBlue text="Cancelar" icon={<CancelIcon/>} styles={{}} onClick={handleNavigateToProfessor} />
+        <ButtonBlue text="Salvar" icon={<CheckCircleIcon/>} styles={{}} onClick={handleSaveProfessor} />
       </div>
       <Snackbar
         open={showSuccessSnackbar}
