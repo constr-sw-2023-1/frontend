@@ -29,7 +29,7 @@ const Rooms: React.FC = () => {
     return (
         <div className="rooms-container">
 
-            <Box textAlign={'left'} width={'20%'}>
+            <Box textAlign={'left'} width={'30%'}>
                 <h1>Criar/Editar sala</h1>
             </Box>
 
@@ -45,7 +45,10 @@ const Rooms: React.FC = () => {
 
             <div className="select-container">
 
-                <select value={linguagem2} onChange={handleLinguagem2Change}>
+                <select style={{
+                    marginRight: '16px',
+                    width: '336px'
+                }}  value={linguagem2} onChange={handleLinguagem2Change}>
                     <option value="" disabled hidden>Capacidade máxima</option>
                     <option value="minus40"> Menos que 40</option>
                     <option value="between4050">Entre 40 e 50</option>
@@ -53,7 +56,9 @@ const Rooms: React.FC = () => {
                     <option value="more60">Mais que 60</option>
                 </select>
 
-                <select value={linguagem4} onChange={handleLinguagem4Change}>
+                <select style={{
+                    width: '336px'
+                }} value={linguagem4} onChange={handleLinguagem4Change}>
                     <option value="" disabled hidden>Prédio</option>
                     <option value="Prédio 1">Prédio 1</option>
                     <option value="Prédio 2">Prédio 2</option>
