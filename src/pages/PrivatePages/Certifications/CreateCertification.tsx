@@ -4,7 +4,7 @@ import DomainIcon from "@mui/icons-material/Domain";
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useNavigate, useParams } from "react-router-dom";
-import { create, update, findById } from '@services/CertificationsService';
+import { create, update, findById } from '@services/certificationsService';
 import ButtonBlue from "../Professors/components/ButtonBlue";
 
 

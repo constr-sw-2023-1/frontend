@@ -1,3 +1,4 @@
+import { ProfessorCertification } from '@pages/PrivatePages/Professors/model/certification';
 import { IProfessor } from '@pages/PrivatePages/Professors/model/professor';
 import axios from '@utils/api';
 
@@ -21,4 +22,16 @@ export const findById = (id: string) => {
 
 export const deleteById = (id: string) => {
 	return api.delete(`/professors/${id}`);
+}
+
+export const createCertification = (idProfessor: string, idCertification: string, req: ProfessorCertification) => {
+	return api.post(`/professors/${idProfessor}/certifications/${idCertification}`, req);
+}
+
+export const updateCertification = (idProfessor: string, idCertification: string, req: ProfessorCertification) => {
+	return api.put(`/professors/${idProfessor}/certifications/${idCertification}`, req);
+}
+
+export const deleteCertification = (idProfessor: string, idCertification: string) => {
+	return api.delete(`/professors/${idProfessor}/certifications/${idCertification}`);
 }

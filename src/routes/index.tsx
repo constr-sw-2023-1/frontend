@@ -2,7 +2,7 @@ import Dashboard from "@pages/Dashboard";
 import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import Lessons from "@pages/Lessons";
-import Types from "@pages/Lessons/types";
+import Types from "@pages/Lessons/Types";
 import CreateLesson from "@pages/Lessons/CreateLesson";
 import CreateProfessor from "@pages/PrivatePages/Professors/CreateProfessor";
 import PrivatePages from "@pages/PrivatePages";
@@ -14,7 +14,7 @@ import Classes from "@pages/PrivatePages/Classes"
 import CreateEdit from "@pages/PrivatePages/Classes/CreateEdit/CreateEdit"
 import Login from "@pages/Login";
 import ProfessorList from "@pages/PrivatePages/Professors";
-import EditProfessors from "@pages/Professors/EditProfessors";
+import EditProfessors from "@pages/PrivatePages/Professors/EditProfessor";
 
 export default function RoutesComponent() {
   return (

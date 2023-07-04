@@ -1,5 +1,5 @@
 export interface Identification {
-    id: number;
+    id?: number;
     type: string;
     value: string;
 }

@@ -1,13 +1,12 @@
+import { Dayjs } from "dayjs"
+import { Identification } from "./identification"
+
 export interface IProfessor {
+    id?: string,
     registration: string,
     name: string,
-    bornDate: Date,
-    admissionDate: Date,
+    bornDate: Date | Dayjs,
+    admissionDate: Date | Dayjs,
     active: boolean,
-    identifications: IIdentification[]
-}
-
-export interface IIdentification {
-    type: string,
-    value: string
+    identifications: Identification[]
 }
