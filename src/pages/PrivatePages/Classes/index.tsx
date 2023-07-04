@@ -4,9 +4,19 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DomainIcon from '@mui/icons-material/Domain';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from 'react-router-dom';
 
 const Classes = () => {
-  const [classes, setClasses] = useState([]);
+  const [classes, setClasses] = useState<classeInterface[]>([]);
+
+  const navigate = useNavigate();
+
+  interface classeInterface {
+    id: string,
+    semester: number,
+    year: number,
+    numClass: number,
+  }
 
   const getAll = async () => {
     const response = await fetch('http://localhost:3000/api/classes', {
@@ -22,14 +32,14 @@ const Classes = () => {
   }, [])
 
   const createClass = () => {
-    setClasses([...classes, `Turma ${classes.length}`]);
+    navigate(`/Turmas/0`);
   };
 
-  const editClass = (id, currentValue) => {
-    //todo: go to edit page
+  const editClass = (id:string) => {
+    navigate(`/Turmas/${id}`);
   };
 
-  const deleteClass = async (id) => {
+  const deleteClass = async (id:string) => {
     const response = await fetch(`http://localhost:3000/api/classes/${id}`, {
       method: "DELETE"
     });
@@ -38,7 +48,7 @@ const Classes = () => {
     }
   };
 
-  const listItem = (index, classe) => {
+  const listItem = (index:number, classe:classeInterface) => {
     const title = `Turma ${classe.numClass}`;
 
     return (
@@ -50,7 +60,7 @@ const Classes = () => {
         </Box>
         <Box >
           <Button onClick={() => {
-            editClass(classe.id, classe);
+            editClass(classe.id);
           }}>
             <EditIcon style={{ color: 'black' }} />
           </Button>
