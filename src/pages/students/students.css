@@ -1,0 +1,39 @@
+.studentsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    background-color: #EEF1EF;
+}
+
+.createStudentsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    background-color: #EEF1EF;
+}
+
+.studentsInput {
+    background-color: #ffffff;
+}
+
+.buttonContainer {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.buttonContainer button {
+    margin-top: 0.5rem;
+    width: 164px;
+    height: 48px;
+    font-size: 16px;
+}

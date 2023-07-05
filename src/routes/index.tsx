@@ -12,10 +12,18 @@ import CreateEditType from '@pages/PrivatePages/Lessons/CreateEditType';
 import Subjects from '@pages/PrivatePages/Lessons/Subjects';
 import Types from '@pages/PrivatePages/Lessons/Types';
 import ProfessorList from "@pages/PrivatePages/Professors";
-import EditProfessors from "@pages/PrivatePages/Professors/EditProfessor";
-import CreateProfessor from '@pages/PrivatePages/Professors/CreateProfessor';
-import CreateShiftsPage from '@pages/PrivatePages/Shifts/CreateShiftsPage';
-import Shifts from '@pages/PrivatePages/Shifts/ShiftsPage';
+import CreateProfessor from "@pages/PrivatePages/Professors/CreateProfessor";
+import PrivatePages from "@pages/PrivatePages";
+import CreateShiftsPage from "@pages/PrivatePages/Shifts/CreateShiftsPage";
+import Shifts from "@pages/PrivatePages/Shifts/ShiftsPage";
+import Certifications from "@pages/PrivatePages/Certifications";
+import CreateCertification from "@pages/PrivatePages/Certifications/CreateCertification";
+import Classes from "@pages/PrivatePages/Classes"
+import CreateEdit from "@pages/PrivatePages/Classes/CreateEdit/CreateEdit"
+import Login from "@pages/Login";
+import Students from "@pages/students";
+import CreateStudent from "@pages/students/CreateStudent";
+import EditStudent from "@pages/students/EditStudent";
 import { ResourcesCreate, ResourcesList } from '@pages/Resources';
 import { Route, Routes } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
@@ -23,10 +31,8 @@ import PrivateRoute from './PrivateRoute';
 export default function RoutesComponent() {
   return (
     <Routes>
-      <Route path={''} element={<PrivateRoute />}>
-        <Route path={''} element={<PrivatePages />}>
-          {/* <Route path={""} element={<Dashboard />} /> */}
-        </Route>
+      <Route path={""} element={<PrivateRoute />}>  
+        <Route path={""} element={<PrivatePages />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/resources" element={<ResourcesList />} />
@@ -49,8 +55,11 @@ export default function RoutesComponent() {
         <Route path="/Turmas" element={<Classes />} />
         <Route path="/Turmas/:id" element={<CreateEdit />} />
         <Route path="/Periodos" element={<Shifts />} />
-        <Route path="/create-shift" element={<CreateShiftsPage name={''} />} />
-        <Route path="/edit-shift/:id" element={<CreateShiftsPage name={''} />} />
+        <Route path="/create-shift" element={<CreateShiftsPage name={""} />} />
+        <Route path="/edit-shift/:id" element={<CreateShiftsPage name={""} />} />
+        <Route path={"/students"} element={<Students />} />
+        <Route path={"students/create"} element={<CreateStudent />} />
+        <Route path={"students/edit/:id"} element={<EditStudent />} />
       </Route>
     </Routes>
   );
