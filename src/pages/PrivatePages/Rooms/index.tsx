@@ -26,10 +26,43 @@ const Rooms: React.FC = () => {
         setLinguagem4(event.target.value);
     };
 
+    const handleSubmit = () => {
+        const data = {
+                "name": "1",
+                "capacity": 2,
+                "floor": 3,
+                "resources": [
+                  "5"
+                ],
+                "building": "7"
+        };
+
+        fetch('http://localhost:8085/room', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer root"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (response.ok) {
+                // A resposta foi bem-sucedida
+                console.log('Dados enviados com sucesso!');
+            } else {
+                // A resposta não foi bem-sucedida
+                console.log('Falha ao enviar os dados.');
+            }
+        })
+        .catch(error => {
+            console.error('Ocorreu um erro ao enviar os dados:', error);
+        });
+    };
+
     return (
         <div className="rooms-container">
 
-            <Box textAlign={'left'} width={'30%'}>
+            <Box className="box" textAlign={'left'} width={'30%'}>
                 <h1>Criar/Editar sala</h1>
             </Box>
 
@@ -82,6 +115,7 @@ const Rooms: React.FC = () => {
                 <Fab
                     color='primary'
                     aria-label='add'
+                    onClick={handleSubmit}
                 >
                     <AddRounded />
                 </Fab>
