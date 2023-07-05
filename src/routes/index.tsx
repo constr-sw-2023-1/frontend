@@ -19,7 +19,7 @@ import Shifts from '@pages/PrivatePages/Shifts/ShiftsPage';
 import { ResourcesCreate, ResourcesList } from '@pages/Resources';
 import { Route, Routes } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
-
+import ClassesListPage from "@pages/RoomsListPage";
 export default function RoutesComponent() {
   return (
     <Routes>
@@ -51,7 +51,8 @@ export default function RoutesComponent() {
         <Route path="/Periodos" element={<Shifts />} />
         <Route path="/create-shift" element={<CreateShiftsPage name={''} />} />
         <Route path="/edit-shift/:id" element={<CreateShiftsPage name={''} />} />
+        <Route path="/salas" element={<ClassesListPage/>}/>
       </Route>
     </Routes>
   );
-}
+  }
