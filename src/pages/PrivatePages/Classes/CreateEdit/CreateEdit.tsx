@@ -18,6 +18,8 @@ const CreateEdit = () => {
 
   const [showError, setShowError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<string>('');
 
   interface shiftInterface {
     id: string | undefined,
@@ -65,7 +67,7 @@ const CreateEdit = () => {
   const getShifts = async () => {
     const response = await fetch(`http://localhost:3000/api/shifts`)
     const json = await response.json();
-    setShifts(json.map((value: { id: any; period: any; }) => {
+    setShifts(json.filter((value: { active: boolean; }) => { return value.active }).map((value: { id: any; period: any; active: boolean; }) => {
       return { id: value.id, period: value.period }
     }))
 
@@ -84,7 +86,11 @@ const CreateEdit = () => {
       setShowError(true)
       return
     }
-    navigate('/Turmas');
+    setSuccessMessage('Criação da turma feita com sucesso!')
+    setShowSuccess(true)
+    setTimeout(() => {
+      navigate('/Turmas');
+    }, 5000);
   }
 
   const updateClass = async () => {
@@ -102,7 +108,11 @@ const CreateEdit = () => {
       setShowError(true)
       return
     }
-    navigate('/Turmas');
+    setSuccessMessage(`Edição da turma ${classe.numClass} feita com sucesso!`)
+    setShowSuccess(true)
+    setTimeout(() => {
+      navigate('/Turmas');
+    }, 5000);
   }
 
   return (
@@ -119,6 +129,10 @@ const CreateEdit = () => {
         {showError && (<Alert severity='error'>
           <AlertTitle>Error</AlertTitle>
           {errorMessage}
+        </Alert>)}
+        {showSuccess && (<Alert severity='success'>
+          <AlertTitle>Sucesso</AlertTitle>
+          {successMessage}
         </Alert>)}
         <Box display={'flex'} flexDirection={'column'} flexWrap={'wrap'} gap={5} marginTop={5}>
           <TextField label="Número da Turma" value={classe ? classe.numClass : ''} onChange={(e) => {
