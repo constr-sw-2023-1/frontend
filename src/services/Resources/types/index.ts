@@ -21,24 +21,9 @@ export type Resource = {
     configurations: ResourceConfiguration[]
 } 
 
-export class CreateResource {
-    id?: string
+export type CreateResource = {
     description?: string
-    manufactorUUID?: string
+    manufacturerUUID?: string
     typeUUID?: string
     configurations?: ResourceConfiguration[]
-
-    toResource():Resource {
-        return {
-            id: this.id!,
-            description: this.description!,
-            manufacturer: {
-                id: this.manufactorUUID!,
-            },
-            type: {
-                id: this.typeUUID!
-            },
-            configurations: this.configurations!
-        }
-    }
 }

@@ -29,7 +29,6 @@ export default function RoutesComponent() {
     <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="lessons" element={<Lessons />} />
-        {/*<Route path="lessons/types" element={<Types />} /> */}
         <Route path="/resources" element={<ResourcesList />} />
         <Route path="/resources/edit/:id" element={<ResourcesEdit />} />
         <Route path="/resources/create" element={<ResourcesCreate />} />
