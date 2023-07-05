@@ -15,6 +15,7 @@ import ProfessorList from '@pages/PrivatePages/Professors';
 import CreateProfessor from '@pages/PrivatePages/Professors/CreateProfessor';
 import CreateShiftsPage from '@pages/PrivatePages/Shifts/CreateShiftsPage';
 import Shifts from '@pages/PrivatePages/Shifts/ShiftsPage';
+import { ResourcesCreate, ResourcesList } from '@pages/Resources';
 import { Route, Routes } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 
@@ -26,9 +27,8 @@ export default function RoutesComponent() {
           {/* <Route path={""} element={<Dashboard />} /> */}
         </Route>
         <Route path="/" element={<Dashboard />} />
-        <Route path="lessons" element={<Lessons />} />
-        <Route path="lessons/types" element={<Types />} />
-        <Route path="lessons/create" element={<CreateEditLesson />} />
+        <Route path="/resources" element={<ResourcesList />} />
+        <Route path="/resources/create" element={<ResourcesCreate />} />
         <Route path="/professors" element={<ProfessorList />} />
         <Route path="/professors/create" element={<CreateProfessor />} />
         <Route path="/professors/certificates" element={<Certifications />} />
