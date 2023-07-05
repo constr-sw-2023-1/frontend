@@ -1,4 +1,4 @@
-import { Box, Container, Typography, Input, List, ListItem, IconButton, ListItemText, TextField, Snackbar, Alert } from "@mui/material";
+import { Box, Container, Typography, Input, List, ListItem, IconButton, TextField, Snackbar, Alert } from "@mui/material";
 import { useState } from "react";
 import "./Professors.css";
 import { useNavigate } from 'react-router-dom';
@@ -12,20 +12,23 @@ import "react-datepicker/dist/react-datepicker.css";
 import ButtonBlue from "./components/ButtonBlue";
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import axios from "axios";
+import { create, update, findById } from '@services/professorsService';
 import { Identification } from "./model/identification";
+import { IProfessor } from "./model/professor";
+import { Dayjs } from "dayjs";
 
 export default function CreateProfessor(): JSX.Element {
 
   const [name, setName] = useState("");
   const [registration, setRegistration] = useState("");
   const [email, setEmail] = useState("");
-  const [birthDate, setBirthDate] = useState<Date | null>(null);
-  const [admissionDate, setAdmissionDate] = useState<Date | null>(null);
+  const [birthDate, setBirthDate] = useState<Dayjs | null>(null);
+  const [admissionDate, setAdmissionDate] = useState<Dayjs | null>(null);
   const [identification, setIdentification] = useState<Identification[]>([]);
   const [idCount, setIdCount] = useState<number>(0);
   const [showSuccessSnackbar, setShowSuccessSnackbar] = useState(false);
   const [showErrorSnackbar, setShowErrorSnackbar] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("Falha ao criar professor");
 
   const navigate = useNavigate();
 
@@ -59,22 +62,22 @@ export default function CreateProfessor(): JSX.Element {
 
   const handleSaveProfessor = async () => {
     try {
-      const professorData = {
+      const professorData: IProfessor = {
         registration: registration,
         name: name,
-        bornDate: birthDate,
-        admissionDate: admissionDate,
+        bornDate: birthDate as Dayjs,
+        admissionDate: admissionDate as Dayjs,
         active: true,
-        identification: identification.map((e) => { })
+        identifications: identification.map((e) => { return { type: e.type, value: e.value } as Identification })
       };
 
-      await axios.post("http://localhost:8083/professors/", professorData);
+      await create(professorData);
       setShowSuccessSnackbar(true);
 
       handleNavigateToProfessor(); // Redirecionar após o salvamento
-    } catch (error) {
+    } catch (error: any) {
+      setErrorMessage(error.message)
       setShowErrorSnackbar(true);
-      console.log("Erro ao salvar professor:", error);
     }
   };
 
@@ -92,7 +95,7 @@ export default function CreateProfessor(): JSX.Element {
         <Box sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           <WorkOutlinedIcon htmlColor="#005288" />
           <Typography variant="h4" fontWeight={500}>
-            Criar/Editar Professor
+            Editar Professor
           </Typography>
         </Box>
 
@@ -147,7 +150,7 @@ export default function CreateProfessor(): JSX.Element {
             key={id.id}
             disableGutters
             secondaryAction={
-              <IconButton onClick={() => handleRemoveIdentification(id.id)} aria-label="comment">
+              <IconButton onClick={() => handleRemoveIdentification(id.id!)} aria-label="comment">
                 <DeleteIcon />
               </IconButton>
             }
@@ -183,8 +186,8 @@ export default function CreateProfessor(): JSX.Element {
         <AddIcon />
       </IconButton>
       <div className="buttonContainer">
-        <ButtonBlue text="Cancelar" icon={<CheckCircleIcon/>} styles={{}} onClick={handleNavigateToProfessor} />
-        <ButtonBlue text="Salvar" icon={<CancelIcon/>} styles={{}} onClick={handleSaveProfessor} />
+        <ButtonBlue text="Cancelar" icon={<CancelIcon/>} styles={{}} onClick={handleNavigateToProfessor} />
+        <ButtonBlue text="Salvar" icon={<CheckCircleIcon/>} styles={{}} onClick={handleSaveProfessor} />
       </div>
       <Snackbar
         open={showSuccessSnackbar}
@@ -209,7 +212,7 @@ export default function CreateProfessor(): JSX.Element {
           severity="error"
           sx={{ width: '100%', backgroundColor: '#B90E0A', color: 'white' }}
         >
-          Erro ao criar/atualizar professor
+          {errorMessage}
         </Alert>
       </Snackbar>
     </Container>

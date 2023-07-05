@@ -6,7 +6,6 @@ Para autenticar, setar no localStorage o token com a key `JWT_TOKEN`:
 
 `localStorage.setItem("JWT_TOKEN", token)`
 
-
 # Para rodar local:
 
 - Node > v14.17.0
@@ -17,7 +16,8 @@ Executar o comando
 npm install
 ```
 
-Posteriormente, executar o comando:
+após instalação, executar o comando:
 ```bash
 npm run dev
 ```
+:point_up: após esse comando, deve ser aberta uma tela mostrando a pagina de Dashboard
