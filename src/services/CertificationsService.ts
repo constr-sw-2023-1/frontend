@@ -1,4 +1,4 @@
-import { ICertification } from '@shared/ICertification';
+import { ICertification } from '@pages/PrivatePages/Certifications/model/certification';
 import axios from '@utils/api';
 
 const api = axios({baseURL: 'http://localhost:8083'});
