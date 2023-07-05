@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import SalaItem from './Components/RoomItem';
+import api from '@utils/api';
 const Salas = [
   {
     number: 1,
@@ -31,18 +32,37 @@ const Salas = [
   }
 ]
 export default function PrediosSalas() {
-  // const history = useHistory();
-  // const [predios, setPredios] = useState<Predio[]>([]);
-  const [classes, setClasses] = useState([]);
+  const [Rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(true);
+  console.log("cheguei aqui");
 
-  const getAll = async () => {
-    const response = await fetch('http://localhost:3000/api/classes', {
-      headers: {
-        "Accept": "application/json"
+
+  const getAllClasses = useCallback(async () => {
+    try {
+      const response = await fetch('http://localhost:8085/room', {
+        headers: {
+          Accept: 'application/json',
+          Authorization: 'Bearer root', // Replace with your actual bearer token
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setRooms(data);
+      } else {
+        console.error('Failed to fetch classes:', response.status);
       }
-    });
-    setClasses(await response.json())
-  }
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+console.log(Rooms);
+
+  useEffect(() => {
+    getAllClasses();
+  }, [getAllClasses]);
 
   return (
     <Grid container gap={1} padding={1} flexDirection='column' justifyContent='center' alignItems='center'>

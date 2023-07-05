@@ -4,8 +4,8 @@ const api = ({ baseURL }: { baseURL: string }) =>
   axios.create({
     baseURL,
     headers: {
-      Authorization: "Bearer " + localStorage.getItem("JWT_TOKEN"),
-      "Content-Type": "application/json",
+      Authorization: "Bearer " + "root",
+      "Content-Type": "application/json"
     },
   });
 
