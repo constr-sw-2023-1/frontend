@@ -3,13 +3,13 @@ import { Button, Typography } from "@mui/material";
 interface OrangeProps {
     text: string;
     startIcon?: React.ReactNode;
+    disable?: boolean;
     styles?: React.CSSProperties;
-    href?: string
     onClick?: () => void;
 }
 
 
-const OrangeButton: React.FC<OrangeProps> = ({ text, startIcon, styles, ...props }) => {
+const OrangeButton: React.FC<OrangeProps> = ({ text, startIcon, styles, disable, ...props }) => {
     const renderButton = () => {
         return (
             <Button href="" color="secondary" variant="contained" startIcon={startIcon}
@@ -24,6 +24,7 @@ const OrangeButton: React.FC<OrangeProps> = ({ text, startIcon, styles, ...props
                     },
                     ...styles
                 }}
+                disabled={disable}
                 {...props}>
                 <Typography sx={{ fontSize: "inherit", display: 'flex', alignItems: 'center' }}>
                     {text}

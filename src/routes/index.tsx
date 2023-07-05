@@ -1,6 +1,6 @@
 import Dashboard from "@pages/Dashboard";
 import { Route, Routes } from "react-router-dom";
-import { ResourcesCreate, ResourcesList } from "@pages/Resources";
+import { ResourcesEdit, ResourcesCreate, ResourcesList } from "@pages/PrivatePages/Resources";
 import PrivateRoute from "./PrivateRoute";
 import Lessons from "@pages/Lessons";
 import CreateLesson from "@pages/Lessons/CreateLesson";
@@ -26,6 +26,7 @@ export default function RoutesComponent() {
         <Route path="lessons" element={<Lessons />} />
         {/*<Route path="lessons/types" element={<Types />} /> */}
         <Route path="/resources" element={<ResourcesList />} />
+        <Route path="/resources/edit/:id" element={<ResourcesEdit />} />
         <Route path="/resources/create" element={<ResourcesCreate />} />
         <Route path="lessons/create" element={<CreateLesson />} />
         <Route path="/professors" element={<ProfessorList />} />
