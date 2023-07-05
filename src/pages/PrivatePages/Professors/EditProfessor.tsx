@@ -15,6 +15,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { ProfessorCertification } from './model/certification';
 import { ICertification } from '../Certifications/model/certification';
 import { findAll } from '@services/certificationsService';
+import { ArrowBack, CardMembership, CheckCircle } from '@mui/icons-material';
 
 
 const EditProfessors = (): JSX.Element => {
@@ -87,7 +88,7 @@ const EditProfessors = (): JSX.Element => {
       })
 
       certification.forEach(async (c) => {
-        await createCertification(id!, c.uuid!, {year: c.year, semester: c.semester})
+        await createCertification(id!, c.uuid!, { year: c.year, semester: c.semester })
       })
 
       setShowSuccessSnackbar(true);
@@ -193,7 +194,7 @@ const EditProfessors = (): JSX.Element => {
       </Box>
 
       <List sx={{ width: '100%', bgcolor: '#005288', padding: '1rem', marginTop: '1rem', borderRadius: '.5rem' }}>
-        <Typography sx={{ color: "white" }}>Identificadores</Typography>
+        <Typography sx={{ color: "white", display: 'flex' }}>Identificadores</Typography>
         {identification.map((id) => (
           <ListItem
             key={id.id}
@@ -234,7 +235,7 @@ const EditProfessors = (): JSX.Element => {
       </IconButton>
 
       <List sx={{ width: '100%', bgcolor: '#005288', padding: '1rem', marginTop: '1rem', borderRadius: '.5rem' }}>
-        <Typography sx={{ color: "white" }}>Certificações</Typography>
+        <Typography sx={{ color: "white", display: 'flex' }}> <CardMembership sx={{ paddingRight: '10px' }} /> Certificações</Typography>
         {certification.map((cert) => (
           <ListItem
             key={cert.id}
@@ -251,7 +252,7 @@ const EditProfessors = (): JSX.Element => {
               disablePortal
               fullWidth
               value={cert.uuid ? certificationOptions.find(option => option.id === cert.uuid) : null}
-              onChange={(_,value) => { cert.uuid = value!.id, handleUpdateCertification(cert) }}
+              onChange={(_, value) => { cert.uuid = value!.id, handleUpdateCertification(cert) }}
               options={certificationOptions}
               sx={{ color: "white" }}
               renderInput={(params) => <TextField {...params} placeholder='Certificação' />}
@@ -286,8 +287,8 @@ const EditProfessors = (): JSX.Element => {
         <AddIcon />
       </IconButton>
       <div className="buttonContainer">
-        <ButtonBlue text="Voltar" styles={{}} onClick={handleNavigateToProfessor} />
-        <ButtonBlue text="Salvar" styles={{}} onClick={handleUpdateProfessor} />
+        <ButtonBlue text="Voltar" icon={<ArrowBack />} styles={{}} onClick={handleNavigateToProfessor} />
+        <ButtonBlue text="Salvar" icon={<CheckCircle />} styles={{}} onClick={handleUpdateProfessor} />
       </div>
       <Snackbar open={showSuccessSnackbar} autoHideDuration={3000} onClose={handleSuccessSnackbarClose}>
         <Alert onClose={handleSuccessSnackbarClose} severity="success" sx={{ width: '100%', backgroundColor: '#33B864', color: 'white' }}>
