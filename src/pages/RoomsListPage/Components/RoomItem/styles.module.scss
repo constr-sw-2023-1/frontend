@@ -1,0 +1,51 @@
+
+.rooms-container {
+  background-color: white;
+  box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.rooms-class{
+  display: flex;
+  flex-direction: column;
+  font-family: Roboto;
+}
+.rooms-title{
+  display: flex;
+  margin-bottom: 5px;
+}
+.rooms-capacity {
+  display: flex;
+  margin-bottom: 3px;
+  flex-direction: column;
+    color: #6D8A96;
+    font-size: 80;
+    opacity: 0.6;
+    font-size: small;
+  }
+.rooms-building {
+    padding-top: 2px;
+    color: #6D8A96;
+    opacity: 0.6;
+    font-size: small;
+    margin-right: 10px;
+  }
+  .align-section{
+    display: flex;
+  }
+  .rooms-type {
+    padding-top: 2px;
+    flex-direction: column;
+    color: #6D8A96;
+    opacity: 0.6;
+    font-size: small;
+    margin-right: 10px;
+  }
+.rooms-actions {
+    display: flex;
+    gap: 1px;
+  }

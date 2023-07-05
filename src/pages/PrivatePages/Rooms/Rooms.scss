@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap');
+
+.rooms-container {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    padding-left: 15%;
+    background-color: rgb(245, 245, 245);
+}
+
+.box {
+    font-family: 'Barlow', sans-serif;
+  }
+
+.rooms-container h1 {
+    color: black;
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+
+.rooms-container select {
+    color: gray;
+    width: 424px;
+    height: 56px;
+    margin-bottom: 12px;
+}
+
+.rooms-container option {
+    padding: 4px;
+}
+
+.select-container {
+    display: inline-block;
+    align-items: center;
+    width: '100%';
+    justify-content: left;
+}
