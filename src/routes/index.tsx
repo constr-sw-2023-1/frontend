@@ -11,7 +11,8 @@ import CreateEditSubject from '@pages/PrivatePages/Lessons/CreateEditSubject';
 import CreateEditType from '@pages/PrivatePages/Lessons/CreateEditType';
 import Subjects from '@pages/PrivatePages/Lessons/Subjects';
 import Types from '@pages/PrivatePages/Lessons/Types';
-import ProfessorList from '@pages/PrivatePages/Professors';
+import ProfessorList from "@pages/PrivatePages/Professors";
+import EditProfessors from "@pages/PrivatePages/Professors/EditProfessor";
 import CreateProfessor from '@pages/PrivatePages/Professors/CreateProfessor';
 import CreateShiftsPage from '@pages/PrivatePages/Shifts/CreateShiftsPage';
 import Shifts from '@pages/PrivatePages/Shifts/ShiftsPage';
@@ -27,43 +28,29 @@ export default function RoutesComponent() {
           {/* <Route path={""} element={<Dashboard />} /> */}
         </Route>
         <Route path="/" element={<Dashboard />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/resources" element={<ResourcesList />} />
         <Route path="/resources/create" element={<ResourcesCreate />} />
         <Route path="/professors" element={<ProfessorList />} />
+        <Route path="/professors/:id" element={<EditProfessors />} />
         <Route path="/professors/create" element={<CreateProfessor />} />
-        <Route path="/professors/certificates" element={<Certifications />} />
+        <Route path="/professors/certifications" element={<Certifications />} />
+        <Route path="/professors/certifications/create" element={<CreateCertification />} />
+        <Route path="/professors/certifications/:id" element={<CreateCertification />}/>
         <Route path="/lessons/subjects" element={<Subjects />} />
         <Route path="/lessons" element={<Lessons />} />
         <Route path="/lessons/types" element={<Types />} />
         <Route path="/lessons/types/create" element={<CreateEditType />} />
         <Route path="/lessons/create" element={<CreateEditLesson />} />
-        <Route
-          path="/lessons/subjects/create"
-          element={<CreateEditSubject />}
-        />
-        <Route
-          path="/lessons/subjects/edit/:id"
-          element={<CreateEditSubject />}
-        />
+        <Route path="/lessons/subjects/create" element={<CreateEditSubject />} />
+        <Route path="/lessons/subjects/edit/:id" element={<CreateEditSubject />} />
         <Route path="/lessons/types/edit/:id" element={<CreateEditType />} />
         <Route path="/lessons/edit/:id" element={<CreateEditLesson />} />
-        <Route
-          path="/professors/certificates/create"
-          element={<CreateCertification />}
-        />
-        <Route
-          path="/professors/certificates/:id"
-          element={<CreateCertification />}
-        />
         <Route path="/Turmas" element={<Classes />} />
         <Route path="/Turmas/:id" element={<CreateEdit />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/Periodos" element={<Shifts />} />
         <Route path="/create-shift" element={<CreateShiftsPage name={''} />} />
-        <Route
-          path="/edit-shift/:id"
-          element={<CreateShiftsPage name={''} />}
-        />
+        <Route path="/edit-shift/:id" element={<CreateShiftsPage name={''} />} />
       </Route>
     </Routes>
   );
