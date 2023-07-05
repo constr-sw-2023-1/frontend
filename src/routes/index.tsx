@@ -6,7 +6,6 @@ import AddCoursePage from "@pages/PrivatePages/Courses/AddCoursePage";
 import CourseDetailsPage from "@pages/PrivatePages/Courses/CourseDetailsPage";
 import AddBookPage from "@pages/PrivatePages/Courses/AddBookPage";
 import BookDetailsPage from "@pages/PrivatePages/Courses/BookDetailsPage";
-import Classes from "@pages/PrivatePages/Classes"
 
 
 export default function RoutesComponent() {
@@ -20,7 +19,6 @@ export default function RoutesComponent() {
           <Route path={"books/add"} element={<AddBookPage />} />
           <Route path={"books/details/:id"} element={<BookDetailsPage />} />
         </Route>
-        <Route path="/Turmas" element={<Classes/>}/>
       </Route>
     </Routes>
   );
