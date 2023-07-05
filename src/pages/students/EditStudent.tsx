@@ -249,7 +249,7 @@ const EditStudent = () => {
                 />
               </Box>
             ))}
-            <Button variant="outlined" onClick={handleAddSchooling}>
+            <Button variant="contained" sx={{backgroundColor: 'orange'}}  onClick={handleAddSchooling}>
               Adicionar Escolaridade
             </Button>
           </Box>
@@ -346,7 +346,8 @@ const EditStudent = () => {
               </Box>
             ))}
             <Button
-              variant="outlined"
+              variant="contained"
+              sx={{backgroundColor: 'orange'}}
               onClick={handleAddProfessionalExperience}
             >
               Adicionar Experiência Profissional
